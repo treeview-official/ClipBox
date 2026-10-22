@@ -15,6 +15,16 @@
     "nativeRuntime": "not tested"
   },
   "macOS": { "targets": ["arm64 dmg/zip", "x64 dmg/zip"], "nativeBuild": "not run", "nativeRuntime": "not tested", "signingAndNotarization": "not performed" },
-  "ciWorkflow": { "configured": true, "run": false },
+  "packageWorkflow": { "configured": true, "run": false },
+  "sourceCI": {
+    "result": "passed",
+    "url": "https://github.com/treeview-official/ClipBox/actions/runs/39757011473",
+    "commit": "ef9736d0c1e212a46dc142cef831c165b1b6b304",
+    "checks": ["typecheck", "unit tests", "production source build"],
+    "windows": { "passed": 37, "skipped": 2 },
+    "macOS": { "passed": 39, "skipped": 0 },
+    "ubuntu": { "passed": 39, "skipped": 0 },
+    "nativeDesktopGUI": "not included in CI"
+  },
   "notes": ["Previously verified Windows 1.0.0 installer and running application were preserved.", "Wayland background capture, shortcuts and popup focus depend on compositor and portal support."]
 }

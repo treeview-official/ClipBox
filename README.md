@@ -1,5 +1,7 @@
 # ClipBox
 
+[![CI](https://github.com/treeview-official/ClipBox/actions/workflows/ci.yml/badge.svg)](https://github.com/treeview-official/ClipBox/actions/workflows/ci.yml)
+
 **복사한 모든 것을, 언제든 다시.**
 
 텍스트·링크·이미지를 내 컴퓨터에 보관하고, 단축키로 찾아 다시 복사하는 데스크톱 클립보드 매니저입니다. 계정이나 서버 없이 동작합니다.
@@ -70,7 +72,7 @@ npm run build
 
 산출물은 `release/1.1.0/`에 생성되며 Git 소스에는 포함하지 않습니다. `npm run dist`는 현재 OS를 선택하고, `npm run dist:linux:archive`는 Linux TAR.GZ 생성 별칭입니다. [CI](.github/workflows/ci.yml)는 main 푸시·PR에서 세 운영체제의 타입 검사·단위 검사·빌드를 실행합니다. [수동 빌드 워크플로](.github/workflows/build-desktop.yml)는 설치 패키지 생성용이며 아직 실행하지 않았습니다.
 
-**기록된 검증 결과:** 타입 검사 통과, 단위 검사 **37개 통과·POSIX 전용 2개 건너뜀**, Windows 소스 E2E **15개 통과**. [검증 데이터](artifacts/qa/cross-platform-results.json)와 [플랫폼별 범위](docs/07_CROSS_PLATFORM.md)를 확인할 수 있습니다. `npm run test:e2e`는 Windows 기준이며 시스템 클립보드를 사용하는 검사입니다.
+**검증 결과:** GitHub의 Windows·macOS·Ubuntu에서 타입 검사와 프로덕션 소스 빌드가 통과했습니다. 단위 검사는 Windows **37개 통과·2개 건너뜀**, macOS·Ubuntu **각 39개 통과**입니다. 로컬 Windows 소스 E2E **15개도 통과**했습니다. [CI 실행 결과](https://github.com/treeview-official/ClipBox/actions/runs/39757011473), [검증 데이터](artifacts/qa/cross-platform-results.json), [플랫폼별 범위](docs/07_CROSS_PLATFORM.md)를 확인하세요. CI는 Mac·Linux의 실제 GUI·클립보드 검수를 대체하지 않습니다. `npm run test:e2e`는 Windows 기준이며 시스템 클립보드를 사용하는 검사입니다.
 
 ## 개인정보와 저장
 

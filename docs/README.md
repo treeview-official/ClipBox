@@ -32,7 +32,8 @@
 | 자료 | 범위 |
 |---|---|
 | [1.0 Windows 검증](06_VERIFICATION.md) | 당시의 소스·단축키·배포 실행 검사; 역사적 기록 |
-| [1.1 검증 요약 JSON](../artifacts/qa/cross-platform-results.json) | 타입 검사, 단위 37개 통과·2개 건너뜀, Windows E2E 15개 통과, 미검증 플랫폼 |
+| [1.1 검증 요약 JSON](../artifacts/qa/cross-platform-results.json) | Windows 단위 37개·E2E 15개 통과, macOS·Ubuntu 단위 각 39개 통과, 실제 GUI 미검증 범위 |
+| [GitHub 소스 CI](https://github.com/treeview-official/ClipBox/actions/workflows/ci.yml) | Windows·macOS·Ubuntu 타입 검사·단위 검사·프로덕션 소스 빌드 |
 | [Windows E2E 결과](../artifacts/qa/e2e-results.json) | 실제 UI·클립보드 검사 항목 |
 | [기존 단축키 충돌 검사](../artifacts/qa/hotkey-results.json) | 별도 프로세스의 키 선점과 재등록 검사 |
 | [1.0 배포 실행 결과](../artifacts/qa/package-results.json) | unpacked Windows 앱 시작과 IPC 검사 |

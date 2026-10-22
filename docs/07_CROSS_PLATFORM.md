@@ -7,17 +7,20 @@
 | 항목 | 결과 |
 |---|---|
 | 최신 1.1 타입 검사 | 통과 |
-| 최신 단위 검사 | Windows에서 37개 통과, POSIX 전용 2개 건너뜀 |
+| 최신 단위 검사 | Windows 37개 통과·2개 건너뜀. GitHub macOS·Ubuntu에서 각각 39개 통과 |
 | 최신 Windows E2E | 실제 Electron 창·OS 클립보드 15개 검사 통과 |
 | Windows 1.0 배포물 | 기존 설치 EXE와 unpacked EXE 실행 검증 기록 보존 |
 | Windows 1.1 설치 EXE | 생성하지 않음. Windows에서 `npm run dist:win`으로 빌드 가능 |
 | Linux 1.1 x64 TAR.GZ | 생성. x64 ELF 헤더·1.1 번들·실행 파일 0755 권한 확인 |
 | macOS x64 / arm64 | DMG/ZIP 구성 완료. 실제 macOS 빌드·실행 미수행 |
 | Linux 네이티브 실행 | GUI·클립보드·글로벌 키·로그인 자동 실행 미검증 |
-| GitHub Actions | 수동 OS별 빌드 매트릭스 구성. 원격 실행 미수행 |
+| GitHub 소스 CI | Windows·macOS·Ubuntu에서 타입 검사·단위 검사·프로덕션 소스 빌드 통과 |
+| GitHub 패키징 워크플로 | 수동 OS별 패키징 매트릭스 구성. 설치 패키지 생성 작업은 미실행 |
 | 서명·공증 | 자격 증명이 없어 미수행 |
 
 Windows 소스 E2E 통과는 새 설치 프로그램 검증을 뜻하지 않습니다. 아카이브 생성과 플랫폼 단위 검사는 macOS/Linux 실제 클립보드나 단축키 동작을 증명하지 않습니다. 이 두 플랫폼은 네이티브 검수가 필요한 후보입니다.
+
+소스 CI의 최초 확인 결과는 [GitHub 실행 기록](https://github.com/treeview-official/ClipBox/actions/runs/39757011473)에 있습니다. macOS·Ubuntu에서 POSIX 권한·심볼릭 링크 전용 단위 검사도 통과했습니다. 이 결과는 DMG/설치 파일 생성이나 데스크톱 UI 실행 검증과 구분합니다.
 
 현재 결과는 `artifacts/qa/cross-platform-results.json`과 `artifacts/qa/e2e-results.json`에 기록합니다. `scripts/hotkey-qa.mjs`, `scripts/package-smoke.mjs`는 기존 Windows 검증용 도구이며, 특히 package-smoke는 1.0 경로·버전을 사용합니다. 플랫폼 공통 네이티브 검수 도구로 간주하지 않습니다.
 
@@ -103,7 +106,7 @@ Wayland는 데스크톱·컴포지터·포털에 따라 **백그라운드 클립
 실제 데이터 경로는 환경설정의 **정보**를 확인합니다. 일반적으로 Windows `%APPDATA%/ClipBox`, macOS `~/Library/Application Support/ClipBox`, Linux `$XDG_CONFIG_HOME/ClipBox` 또는 `~/.config/ClipBox`입니다. `clipbox.sqlite`, `settings.json`, `images/` 구조와 평문 저장·수집 동의·보관 정책은 동일하며 기존 데이터를 강제 초기화하지 않습니다.
 
 - macOS 양쪽 아키텍처: DMG/ZIP 빌드·실행, 최초 동의, 텍스트·URL·PNG 수집·재복사, 영속성, 메뉴 막대, 실제 단축키, 로그인 항목, 잠자기·복귀
-- Linux X11: 추출·실행·샌드박스, 클립보드·이미지·한글, 트레이 유무별 최소화·종료, 로그인 자동 실행, 폴더 이동, POSIX 전용 검사 2개
+- Linux X11: 추출·실행·샌드박스, 클립보드·이미지·한글, 트레이 유무별 최소화·종료, 로그인 자동 실행, 폴더 이동
 - Linux Wayland: GNOME/KDE 등 실제 대상별 포털 승인·desktop ID·실제 키·다른 앱 복사 수집·팝업 포커스 제한 기록
 - Windows 1.1: 설치·제거와 재부팅 자동 시작, 기존 1.0 데이터 유지
 - 모든 OS: 다중 모니터·배율·장시간 부하, 배포에 필요한 코드 서명·공증
