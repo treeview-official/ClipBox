@@ -2,6 +2,8 @@ import { create, list } from 'tar';
 import { rename, rm } from 'node:fs/promises';
 
 const executables = new Set(['app.clipbox.desktop', 'chrome-sandbox', 'chrome_crashpad_handler']);
+// This portable archive deliberately assigns no root ownership or setuid bits.
+// DEB/RPM installers use electron-builder's native sandbox/AppArmor setup instead.
 
 export async function createLinuxArchive(directory, destination, prefix) {
   const temporary = `${destination}.tmp`;

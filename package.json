@@ -126,10 +126,11 @@
           "Name": "ClipBox"
         }
       },
-      "maintainer": "ClipBox",
+      "maintainer": "treeview-official <220818056+treeview-official@users.noreply.github.com>",
       "syncDesktopName": true,
       "target": [
-        "tar.gz"
+        "deb",
+        "rpm"
       ],
       "executableName": "app.clipbox.desktop",
       "category": "Utility",

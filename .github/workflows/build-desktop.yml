@@ -1,38 +1,110 @@
 name: Build desktop packages
+
 on:
   workflow_dispatch:
+
 permissions:
   contents: read
+
 jobs:
   package:
+    name: Package (${{ matrix.target }}-${{ matrix.arch }})
+    timeout-minutes: 40
     strategy:
       fail-fast: false
       matrix:
         include:
           - os: windows-latest
             target: win
-          - os: macos-latest
+            arch: x64
+          - os: macos-15
             target: mac
+            arch: arm64
+          - os: macos-15-intel
+            target: mac
+            arch: x64
           - os: ubuntu-24.04
             target: linux
+            arch: x64
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: '24'
           cache: npm
+      - name: Install Linux packaging and display tools
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y rpm xz-utils xvfb libgtk-3-0 libnss3 libasound2t64
       - run: npm ci
       - run: npm run typecheck
       - run: npm test
-      - run: npm run dist:${{ matrix.target }}
-      - uses: actions/upload-artifact@v4
+      - name: Build native installer
+        if: matrix.target != 'mac'
+        run: npm run dist:${{ matrix.target }}
+      - name: Build native Mac disk image
+        if: matrix.target == 'mac'
+        run: npm run dist:mac -- ${{ matrix.arch }}
+      - name: Install Windows package and check startup
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json | ConvertFrom-Json).version
+          $installer = Join-Path $PWD "release/$version/ClipBox-Setup-$version.exe"
+          $installDir = Join-Path $env:RUNNER_TEMP 'ClipBox-installed'
+          $process = Start-Process -FilePath $installer -ArgumentList @('/S', "/D=$installDir") -WindowStyle Hidden -Wait -PassThru
+          if ($process.ExitCode -ne 0) { throw "Installer failed: $($process.ExitCode)" }
+          $env:CLIPBOX_SMOKE_EXECUTABLE = Join-Path $installDir 'ClipBox.exe'
+          if (!(Test-Path -LiteralPath $env:CLIPBOX_SMOKE_EXECUTABLE)) { throw 'Installed executable missing' }
+          node scripts/packaged-smoke.mjs --screenshot
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Mount Mac installer and check installed app
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          version=$(node -p "require('./package.json').version")
+          volume="$RUNNER_TEMP/clipbox-volume"
+          installed="$RUNNER_TEMP/ClipBox.app"
+          mkdir -p "$volume"
+          hdiutil attach "release/$version/ClipBox-$version-mac-${{ matrix.arch }}.dmg" -nobrowse -readonly -mountpoint "$volume"
+          trap 'hdiutil detach "$volume" || true' EXIT
+          ditto "$volume/ClipBox.app" "$installed"
+          hdiutil detach "$volume"
+          trap - EXIT
+          CLIPBOX_SMOKE_EXECUTABLE="$installed" node scripts/packaged-smoke.mjs --screenshot
+      - name: Install Debian package and check startup
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          version=$(node -p "require('./package.json').version")
+          sudo apt-get install --no-install-recommends -y "./release/$version/ClipBox-$version-linux-amd64.deb"
+          dpkg-query -W clipbox
+          test -f /usr/share/applications/app.clipbox.desktop.desktop
+          rpm -qip "release/$version/ClipBox-$version-linux-x86_64.rpm"
+          CLIPBOX_SMOKE_EXECUTABLE=/opt/ClipBox/app.clipbox.desktop xvfb-run --auto-servernum --server-args='-screen 0 1280x900x24' node scripts/packaged-smoke.mjs --screenshot
+      - name: Upload install packages
+        uses: actions/upload-artifact@v4
         with:
-          name: ClipBox-${{ matrix.target }}
+          name: ClipBox-${{ matrix.target }}-${{ matrix.arch }}
           if-no-files-found: error
+          compression-level: 0
           path: |
-            release/1.1.0/*.exe
-            release/1.1.0/*.dmg
-            release/1.1.0/*.zip
-            release/1.1.0/*.tar.gz
+            release/*/*.exe
+            release/*/*.dmg
+            release/*/*.zip
+            release/*/*.deb
+            release/*/*.rpm
+            release/*/*.tar.gz
+          retention-days: 14
+      - name: Upload startup evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: startup-${{ matrix.target }}-${{ matrix.arch }}
+          if-no-files-found: ignore
+          path: artifacts/packaged/
           retention-days: 14

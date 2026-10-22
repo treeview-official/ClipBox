@@ -16,6 +16,7 @@ Thumbs.db
 playwright-report/
 test-results/
 artifacts/qa/failure*.png
+artifacts/packaged/
 *.p12
 *.pfx
 *.pem
