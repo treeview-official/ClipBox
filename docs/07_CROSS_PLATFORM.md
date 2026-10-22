@@ -13,10 +13,13 @@
 | Ubuntu 24.04 x64 | DEB·RPM·TAR.GZ 생성, DEB 설치 후 Xvfb/X11에서 시작 검사 통과 |
 | RPM | 생성·메타데이터 조회 확인. Fedora/RHEL 설치·실행 미검증 |
 | 배포 인증 | Windows 게시자 인증서, Apple Developer ID 서명·공증 미적용 |
+| 한국어 글꼴 포함 최종 패키지 | 네 환경의 패키지 생성·설치된 앱 시작·번들 한국어 글꼴 로드 검사 모두 통과 |
 
-소스 검사는 [소스 CI 실행 기록](https://github.com/treeview-official/ClipBox/actions/runs/39757011473), 첫 네이티브 설치·시작 검사는 [패키지 CI 실행 기록](https://github.com/treeview-official/ClipBox/actions/runs/39759236054)에서 확인할 수 있습니다. 첫 패키지 CI의 소스는 `491304b71ba1f304d66da925c891411fb9095300`입니다. 이 실행에서 Linux의 한국어 글꼴 누락을 발견해 Noto Sans KR을 번들에 추가했으며, 최종 배포 파일의 검증 결과·해시는 [v1.1.0 릴리스](https://github.com/treeview-official/ClipBox/releases/tag/v1.1.0)에 첨부한 기록을 기준으로 확인합니다.
+한국어 글꼴을 포함한 소스 `7edb5ee35626bff1c904524b68b48d8fd4ee8432`에서 [최종 소스 CI](https://github.com/treeview-official/ClipBox/actions/runs/39761357290)의 세 OS 작업과 [최종 패키지 CI](https://github.com/treeview-official/ClipBox/actions/runs/39761371062)의 네 네이티브 작업이 모두 통과했습니다. 표는 이 최종 실행의 결과를 기준으로 하며, 로컬 Windows 소스 E2E는 별도 검사입니다. 최종 배포 파일의 검증 결과·해시는 [v1.1.0 릴리스](https://github.com/treeview-official/ClipBox/releases/tag/v1.1.0)에 첨부한 기록을 확인합니다.
 
-네이티브 시작 검사(`scripts/packaged-smoke.mjs`)는 새 CI 사용자 프로필에서 패키지 버전·아키텍처, 관리 창과 제한된 preload IPC, 최초 동의 화면·빈 기록, sandbox·context isolation을 확인합니다. 수집·로그인 자동 실행을 켜거나 시스템 클립보드에 접근하지 않습니다. 전체 설치 마법사, 다른 앱과의 클립보드·전역 단축키·포커스, 재부팅·로그인 항목까지 검증한 결과로 해석하지 않습니다. Linux 시작 검사는 Xvfb의 X11 환경이며 Wayland 결과가 아닙니다.
+[설치·시작 검증 요약 JSON](../artifacts/qa/installer-release-results.json)을 저장소에 보존합니다. 네 환경의 최초 동의 화면에서 한글이 읽히고 화면이 잘리지 않는 것도 확인했습니다: [Windows](../artifacts/qa/native-startup/win32-x64.png), [Mac Apple Silicon](../artifacts/qa/native-startup/darwin-arm64.png), [Mac Intel](../artifacts/qa/native-startup/darwin-x64.png), [Linux X11](../artifacts/qa/native-startup/linux-x64.png). 화면은 기록 수집을 켜지 않은 빈 CI 프로필에서 촬영했습니다.
+
+네이티브 시작 검사(`scripts/packaged-smoke.mjs`)는 새 CI 사용자 프로필에서 패키지 버전·아키텍처, 관리 창과 제한된 preload IPC, 최초 동의 화면·빈 기록, sandbox·context isolation, 번들 한국어 글꼴 로드를 확인합니다. 수집·로그인 자동 실행을 켜거나 시스템 클립보드에 접근하지 않습니다. 전체 설치 마법사, 다른 앱과의 클립보드·전역 단축키·포커스, 재부팅·로그인 항목까지 검증한 결과로 해석하지 않습니다. Linux 시작 검사는 Xvfb의 X11 환경이며 Wayland 결과가 아닙니다.
 
 기존 `scripts/hotkey-qa.mjs`, `scripts/package-smoke.mjs`는 Windows 1.0 시기의 검증 도구입니다. 특히 package-smoke는 1.0 경로·버전을 사용하므로 공통 네이티브 검수에는 사용하지 않습니다. 생성된 설치 파일과 실행 아카이브는 Git 소스에 포함하지 않습니다.
 

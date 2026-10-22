@@ -37,15 +37,17 @@ Mac 종류를 모르겠다면 **Apple 메뉴 → 이 Mac에 관하여**에서 �
 
 ## 플랫폼 지원 상태
 
-현재 소스 버전은 **1.1.0**입니다. 구현·패키징 상태와 실제 실행 검증 범위를 구분합니다.
+현재 소스 버전은 **1.1.0**입니다. 각 OS의 네이티브 CI에서 설치 패키지 생성과 설치된 앱의 시작을 확인했습니다.
 
 | 플랫폼 | 패키지 | 확인된 범위 |
 |---|---|---|
-| Windows x64 | NSIS `.exe` | 로컬 소스 E2E 15개 통과. 설치 패키지의 최신 확인 범위는 플랫폼 안내 참고 |
-| Linux x64 | `.deb` / `.rpm` / `.tar.gz` | 배포판별 검수 필요. Fedora/RHEL RPM 네이티브 설치·실행 미검증 |
-| macOS Intel / Apple Silicon | `.dmg` / `.zip` | 각 CPU용 패키지. Developer ID 서명·공증 미적용 |
+| Windows x64 | NSIS `.exe` | 무인 설치 후 EXE 시작·최초 동의·IPC 검사 통과. 실제 클립보드 소스 E2E 15개 통과 |
+| macOS Apple Silicon / Intel | `.dmg` / `.zip` | macOS 15의 각 CPU에서 DMG 마운트·앱 복사 후 네이티브 시작 검사 통과 |
+| Linux x64 | `.deb` / `.rpm` / `.tar.gz` | Ubuntu 24.04에서 DEB 설치 후 Xvfb/X11 시작 검사 통과. RPM은 생성·메타데이터 확인 |
 
-Linux는 **X11 우선**입니다. Wayland의 백그라운드 클립보드 수집·전역 단축키·팝업 포커스는 데스크톱과 포털에 따라 제한됩니다. macOS·Linux는 네이티브 검수가 필요한 후보입니다. [상세 상태와 검수 항목](docs/07_CROSS_PLATFORM.md)을 확인하세요.
+한국어 글꼴을 포함한 [최종 패키지 CI](https://github.com/treeview-official/ClipBox/actions/runs/39761371062)의 네 작업이 모두 통과했습니다. 설치된 앱의 시작·보안 설정·로컬 한국어 글꼴 로드를 각 환경에서 확인했습니다.
+
+Linux는 **X11 우선**입니다. Wayland의 백그라운드 클립보드 수집·전역 단축키·팝업 포커스는 데스크톱과 포털에 따라 제한됩니다. macOS·Linux의 실제 앱 간 클립보드·전역 단축키·로그인 자동 실행, Fedora/RHEL의 RPM 설치·실행, 대화형 설치·제거 흐름은 추가 검수 대상입니다. [상세 상태와 검수 항목](docs/07_CROSS_PLATFORM.md)을 확인하세요.
 
 ## 개발자용 · 소스에서 실행
 
@@ -81,12 +83,14 @@ npm run build
 |---|---|
 | `npm run dist:win` | Windows x64 NSIS 설치 파일 |
 | `npm run dist:mac` | Intel·Apple Silicon용 DMG + ZIP; macOS에서 실행 |
-| `npm run dist:linux` | Linux x64 DEB·RPM·TAR.GZ |
+| `npm run dist:linux` | Linux x64 DEB·RPM·TAR.GZ; Linux에서 실행 |
 | `npm run pack` | 현재 OS의 실행 폴더 |
 
 산출물은 `release/1.1.0/`에 생성되며 Git 소스에는 포함하지 않습니다. `npm run dist`는 현재 OS를 선택하고, `npm run dist:linux:archive`는 TAR.GZ만 생성합니다. [CI](.github/workflows/ci.yml)는 main 푸시·PR에서 세 운영체제의 타입 검사·단위 검사·빌드를 실행합니다. [패키지 빌드 워크플로](.github/workflows/build-desktop.yml)는 설치 파일과 패키지 검증을 담당합니다. 최신 실행 결과는 [플랫폼 안내](docs/07_CROSS_PLATFORM.md)를 확인하세요.
 
-**검증 결과:** GitHub의 Windows·macOS·Ubuntu에서 타입 검사와 프로덕션 소스 빌드가 통과했습니다. 단위 검사는 Windows **37개 통과·2개 건너뜀**, macOS·Ubuntu **각 39개 통과**입니다. 로컬 Windows 소스 E2E **15개도 통과**했습니다. [CI 실행 결과](https://github.com/treeview-official/ClipBox/actions/runs/39757011473), [검증 데이터](artifacts/qa/cross-platform-results.json), [플랫폼별 범위](docs/07_CROSS_PLATFORM.md)를 확인하세요. CI는 Mac·Linux의 실제 GUI·클립보드 검수를 대체하지 않습니다. `npm run test:e2e`는 Windows 기준이며 시스템 클립보드를 사용하는 검사입니다.
+**소스 검증:** GitHub의 Windows·macOS·Ubuntu에서 타입 검사와 프로덕션 소스 빌드가 통과했습니다. 단위 검사는 Windows **37개 통과·2개 건너뜀**, macOS·Ubuntu **각 39개 통과**입니다. 로컬 Windows 소스 E2E **15개도 통과**했습니다. [최종 소스 CI 실행 결과](https://github.com/treeview-official/ClipBox/actions/runs/39761357290)를 확인하세요. `npm run test:e2e`는 Windows 기준이며 시스템 클립보드를 사용하는 검사입니다.
+
+**패키지 검증:** 설치된 앱의 시작 검사는 네이티브 버전·아키텍처, 관리 창·제한된 IPC, 수집 OFF 상태의 최초 동의·빈 기록, sandbox와 번들 한국어 글꼴 로드를 확인합니다. 클립보드 수집이나 자동 시작을 켜지 않으며, 실제 앱 간 복사·붙여넣기 검수와 구분합니다. [플랫폼별 검증 범위](docs/07_CROSS_PLATFORM.md)에 자세히 기록했습니다.
 
 ## 개인정보와 저장
 
@@ -112,3 +116,5 @@ Electron 45, React 19, TypeScript, Vite, 내장 `node:sqlite`를 사용합니다
 ## 라이선스
 
 현재 [package.json](package.json)의 라이선스 표기는 `UNLICENSED`이며, 별도의 오픈소스 라이선스를 부여하지 않습니다.
+
+한국어 표시용 Noto Sans KR은 별도의 SIL Open Font License 1.1로 제공되며 앱에 로컬로 포함됩니다. [제삼자 저작물과 글꼴 라이선스](THIRD_PARTY_NOTICES.md)를 확인하세요.
