@@ -1,0 +1,20 @@
+{
+  "version": "1.1.0",
+  "date": "2026-10-22",
+  "host": "win32-x64",
+  "typecheck": "passed",
+  "unitTests": { "passed": 37, "failed": 0, "skipped": 2, "skipReason": "Native POSIX permission and symlink checks require macOS/Linux." },
+  "windowsSourceE2E": { "passed": 15, "failed": 0, "details": "e2e-results.json" },
+  "linuxArchive": {
+    "artifact": "release/1.1.0/ClipBox-1.1.0-linux-x64.tar.gz",
+    "build": "passed",
+    "executableFormat": "ELF64, little endian, AMD x86-64",
+    "executablePermissions": "0755 verified for app.clipbox.desktop, chrome-sandbox, chrome_crashpad_handler",
+    "bundledVersion": "1.1.0",
+    "mainAndPreload": "present",
+    "nativeRuntime": "not tested"
+  },
+  "macOS": { "targets": ["arm64 dmg/zip", "x64 dmg/zip"], "nativeBuild": "not run", "nativeRuntime": "not tested", "signingAndNotarization": "not performed" },
+  "ciWorkflow": { "configured": true, "run": false },
+  "notes": ["Previously verified Windows 1.0.0 installer and running application were preserved.", "Wayland background capture, shortcuts and popup focus depend on compositor and portal support."]
+}

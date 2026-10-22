@@ -1,0 +1,38 @@
+name: Build desktop packages
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  package:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            target: win
+          - os: macos-latest
+            target: mac
+          - os: ubuntu-24.04
+            target: linux
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run dist:${{ matrix.target }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ClipBox-${{ matrix.target }}
+          if-no-files-found: error
+          path: |
+            release/1.1.0/*.exe
+            release/1.1.0/*.dmg
+            release/1.1.0/*.zip
+            release/1.1.0/*.tar.gz
+          retention-days: 14

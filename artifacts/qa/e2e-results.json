@@ -1,0 +1,21 @@
+{
+  "result": "passed",
+  "platform": "win32",
+  "checks": [
+    "No capture before consent; opt-in and startup baseline",
+    "Actual Windows clipboard text, URL, Korean, emoji and multiline capture; stable deduplication",
+    "PNG capture, thumbnail, image recopy and self-copy deduplication",
+    "Real UI search, selection, detail preview and favorite",
+    "850 by 560 responsive detail drawer and search remain usable",
+    "Pause and resume skip clipboard content from paused interval",
+    "Unsaved settings survive external changes and save only edited fields",
+    "Settings UI saves and applies light/dark theme",
+    "Quick popup autofocus, search, Enter recopy and hide",
+    "Sandbox, isolation, restricted IPC validation and blocked external fetch",
+    "Hotkey collision reported without startup failure",
+    "Closing manager leaves background clipboard capture active",
+    "App restart persists history, images, favorite and settings",
+    "Image files removed and two-stage destructive confirmation enforced",
+    "No renderer exceptions"
+  ]
+}

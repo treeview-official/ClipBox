@@ -1,0 +1,11 @@
+{
+  "result": "passed",
+  "platform": "win32",
+  "checks": [
+    "A real second process owns the default shortcut and startup reports its collision",
+    "Consent acceptance, pause, theme and full settings drafts save while the startup shortcut is unavailable",
+    "A custom shortcut registers with the native Windows global shortcut API",
+    "A rejected shortcut replacement preserves the previous registration and all saved settings",
+    "After the other process exits, the default shortcut can replace the custom shortcut without collecting clipboard data"
+  ]
+}
