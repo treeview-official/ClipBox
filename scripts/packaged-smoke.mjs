@@ -168,6 +168,16 @@ async function main() {
     assert.deepEqual(rendererGlobals, { nodeRequire: 'undefined', nodeProcess: 'undefined' });
     checks.push('Renderer sandbox, isolation, web security and no Node globals');
 
+    step = 'bundled-korean-font';
+    const fonts = await page.evaluate(async () => {
+      const faces = await document.fonts.load('400 16px "ClipBox Sans"', '한글 클립보드 기록');
+      await document.fonts.ready;
+      return faces.map(face => ({ family: face.family, status: face.status }));
+    });
+    assert.ok(fonts.length > 0 && fonts.every(face => face.status === 'loaded'), 'The bundled Korean font must load without relying on system fonts.');
+    evidence.bundledKoreanFont = 'loaded';
+    checks.push('Bundled Korean font loads for offline UI rendering');
+
     step = 'settled-ui';
     // Two browser paints allow initial layout and queued renderer work to settle.
     await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));

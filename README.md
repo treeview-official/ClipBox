@@ -6,7 +6,21 @@
 
 텍스트·링크·이미지를 내 컴퓨터에 보관하고, 단축키로 찾아 다시 복사하는 데스크톱 클립보드 매니저입니다. 계정이나 서버 없이 동작합니다.
 
-[시작하기](docs/GETTING_STARTED.md) · [문서 모음](docs/README.md) · [플랫폼 지원](docs/07_CROSS_PLATFORM.md) · [변경 이력](CHANGELOG.md)
+[설치 안내](docs/INSTALL.md) · [사용법](docs/GETTING_STARTED.md) · [문서 모음](docs/README.md) · [플랫폼 지원](docs/07_CROSS_PLATFORM.md) · [변경 이력](CHANGELOG.md)
+
+## 다운로드 · 바로 설치하기
+
+**설치 파일만 받으면 됩니다. Node.js·npm을 따로 설치할 필요가 없습니다.**
+
+| 내 컴퓨터 | ClipBox 1.1.0 다운로드 | 설치 방법 |
+|---|---|---|
+| Windows 10/11 · x64 | [**Windows 설치 파일**](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-Setup-1.1.0.exe) | `.exe` 실행 → 설치 → 시작 메뉴에서 ClipBox |
+| Mac · Apple Silicon | [**Apple Silicon용 DMG**](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-mac-arm64.dmg) | DMG 열기 → Applications로 끌어다 놓기 |
+| Mac · Intel | [**Intel용 DMG**](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-mac-x64.dmg) | DMG 열기 → Applications로 끌어다 놓기 |
+| Linux · Ubuntu/Debian x64 | [**DEB 설치 파일**](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-linux-amd64.deb) | 파일을 소프트웨어 설치 앱으로 열기 |
+| Linux · Fedora/RHEL x64 | [**RPM 설치 파일**](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-linux-x86_64.rpm) | 파일을 소프트웨어 설치 앱으로 열기 |
+
+Mac 종류를 모르겠다면 **Apple 메뉴 → 이 Mac에 관하여**에서 칩 또는 Intel 프로세서를 확인하세요. Windows 개발자 인증서 서명과 Apple Developer ID 서명·공증이 없어 첫 실행 때 보안 확인이 추가될 수 있습니다. [OS별 설치와 보안 안내](docs/INSTALL.md)에 순서대로 정리했습니다. [전체 릴리스 파일](https://github.com/treeview-official/ClipBox/releases/tag/v1.1.0)
 
 ![ClipBox 기록 관리 화면](artifacts/qa/02-history.png)
 
@@ -27,13 +41,13 @@
 
 | 플랫폼 | 패키지 | 확인된 범위 |
 |---|---|---|
-| Windows x64 | NSIS `.exe` | 1.1 소스 E2E 통과. 생성·실행 검증된 배포물은 1.0이며 1.1 설치 파일은 별도 빌드 필요 |
-| Linux x64 | `.tar.gz` | 1.1 아카이브 생성, ELF·번들·실행 권한 확인. 네이티브 실행은 미검증 |
-| macOS Intel / Apple Silicon | `.dmg` / `.zip` | 빌드 구성 완료. 네이티브 빌드·실행·서명·공증은 미수행 |
+| Windows x64 | NSIS `.exe` | 로컬 소스 E2E 15개 통과. 설치 패키지의 최신 확인 범위는 플랫폼 안내 참고 |
+| Linux x64 | `.deb` / `.rpm` / `.tar.gz` | 배포판별 검수 필요. Fedora/RHEL RPM 네이티브 설치·실행 미검증 |
+| macOS Intel / Apple Silicon | `.dmg` / `.zip` | 각 CPU용 패키지. Developer ID 서명·공증 미적용 |
 
 Linux는 **X11 우선**입니다. Wayland의 백그라운드 클립보드 수집·전역 단축키·팝업 포커스는 데스크톱과 포털에 따라 제한됩니다. macOS·Linux는 네이티브 검수가 필요한 후보입니다. [상세 상태와 검수 항목](docs/07_CROSS_PLATFORM.md)을 확인하세요.
 
-## 소스에서 실행
+## 개발자용 · 소스에서 실행
 
 Node.js **24 이상**, npm, 그래픽 데스크톱 환경이 필요합니다. 저장소 루트에서 실행합니다.
 
@@ -67,10 +81,10 @@ npm run build
 |---|---|
 | `npm run dist:win` | Windows x64 NSIS 설치 파일 |
 | `npm run dist:mac` | Intel·Apple Silicon용 DMG + ZIP; macOS에서 실행 |
-| `npm run dist:linux` | Linux x64 TAR.GZ |
+| `npm run dist:linux` | Linux x64 DEB·RPM·TAR.GZ |
 | `npm run pack` | 현재 OS의 실행 폴더 |
 
-산출물은 `release/1.1.0/`에 생성되며 Git 소스에는 포함하지 않습니다. `npm run dist`는 현재 OS를 선택하고, `npm run dist:linux:archive`는 Linux TAR.GZ 생성 별칭입니다. [CI](.github/workflows/ci.yml)는 main 푸시·PR에서 세 운영체제의 타입 검사·단위 검사·빌드를 실행합니다. [수동 빌드 워크플로](.github/workflows/build-desktop.yml)는 설치 패키지 생성용이며 아직 실행하지 않았습니다.
+산출물은 `release/1.1.0/`에 생성되며 Git 소스에는 포함하지 않습니다. `npm run dist`는 현재 OS를 선택하고, `npm run dist:linux:archive`는 TAR.GZ만 생성합니다. [CI](.github/workflows/ci.yml)는 main 푸시·PR에서 세 운영체제의 타입 검사·단위 검사·빌드를 실행합니다. [패키지 빌드 워크플로](.github/workflows/build-desktop.yml)는 설치 파일과 패키지 검증을 담당합니다. 최신 실행 결과는 [플랫폼 안내](docs/07_CROSS_PLATFORM.md)를 확인하세요.
 
 **검증 결과:** GitHub의 Windows·macOS·Ubuntu에서 타입 검사와 프로덕션 소스 빌드가 통과했습니다. 단위 검사는 Windows **37개 통과·2개 건너뜀**, macOS·Ubuntu **각 39개 통과**입니다. 로컬 Windows 소스 E2E **15개도 통과**했습니다. [CI 실행 결과](https://github.com/treeview-official/ClipBox/actions/runs/39757011473), [검증 데이터](artifacts/qa/cross-platform-results.json), [플랫폼별 범위](docs/07_CROSS_PLATFORM.md)를 확인하세요. CI는 Mac·Linux의 실제 GUI·클립보드 검수를 대체하지 않습니다. `npm run test:e2e`는 Windows 기준이며 시스템 클립보드를 사용하는 검사입니다.
 

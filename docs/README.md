@@ -1,12 +1,13 @@
 # 문서 모음
 
-처음 사용하는 경우 [시작 가이드](GETTING_STARTED.md), 지원 환경을 확인하려면 [1.1 플랫폼 안내](07_CROSS_PLATFORM.md)를 먼저 읽으세요.
+처음 사용하는 경우 [설치 가이드](INSTALL.md)에서 내 OS용 파일을 받으세요. 설치 후 사용법은 [시작 가이드](GETTING_STARTED.md), 지원 환경과 확인된 범위는 [1.1 플랫폼 안내](07_CROSS_PLATFORM.md)에 있습니다.
 
 ## 현재 사용법과 상태
 
 | 문서 | 내용 |
 |---|---|
 | [프로젝트 소개](../README.md) | 주요 기능, 빠른 실행, 지원 상태 |
+| [설치 가이드](INSTALL.md) | 직접 다운로드, Windows·Mac·Linux 설치, 첫 실행 보안 안내 |
 | [시작 가이드](GETTING_STARTED.md) | 실행·설치, 기록 사용법, 설정·개인정보, 문제 해결 |
 | [1.1 플랫폼 안내](07_CROSS_PLATFORM.md) | macOS/Linux 동작, Linux 실행 항목, 빌드·검증 범위 |
 | [변경 이력](../CHANGELOG.md) | 버전별 기능과 배포 상태 |

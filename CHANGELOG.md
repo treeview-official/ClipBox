@@ -11,18 +11,22 @@
 - macOS 로그인 항목 및 Linux 사용자 XDG 자동 시작 관리
 - Linux 관리 창의 작업 표시줄 최소화와 트레이 대체 접근
 - Wayland 클립보드·전역 단축키·포커스 제한 안내와 창 위치·항상 위 처리 분리
-- macOS x64·arm64 DMG/ZIP 빌드 구성, Linux x64 TAR.GZ 생성과 실행 권한 보존
-- OS별 수동 빌드 워크플로, 플랫폼 단위 검사와 사용 문서
+- Windows NSIS 설치 EXE, macOS x64·arm64 DMG/ZIP, Linux DEB·RPM·TAR.GZ 패키징과 실행 권한 보존
+- OS별 네이티브 빌드·설치된 앱 시작 검사 워크플로와 다운로드 중심 설치 안내
+- 한국어 시스템 글꼴이 없는 환경을 위한 Noto Sans KR 전체 가변 글꼴 내장. 외부 요청 없이 UI·기록 미리보기·경로 표시에서 사용하며 OFL 라이선스를 배포물에 포함
 
 ### 검증·배포 상태
 
 - 타입 검사 통과, Windows에서 단위 검사 **37개 통과·POSIX 전용 2개 건너뜀**, 소스 E2E **15개 통과**
 - GitHub 소스 CI의 Windows·macOS·Ubuntu 타입 검사·단위 검사·프로덕션 소스 빌드 통과. macOS·Ubuntu는 POSIX 전용 검사를 포함해 **각 39개 통과**
-- Linux x64 아카이브 생성, ELF 형식·1.1 번들·실행 권한 확인; 네이티브 실행 미검증
-- macOS 빌드·실행·서명·공증 미수행; 수동 CI 워크플로 미실행
-- Windows 1.0 배포물을 보존했으며 1.1 설치 EXE는 별도 빌드 필요
+- Windows x64에서 1.1 NSIS 무인 설치 후 EXE 시작 검사 통과
+- macOS 15의 Apple Silicon·Intel에서 각각 DMG/ZIP 생성, DMG 마운트·앱 복사 후 네이티브 시작 검사 통과
+- Ubuntu 24.04 x64에서 DEB·RPM·TAR.GZ 생성, DEB 설치 후 Xvfb/X11 시작 검사 통과. RPM은 메타데이터를 확인했으며 Fedora/RHEL 설치·실행은 미검증
+- 네이티브 시작 검사는 앱 버전·아키텍처, 제한된 IPC, 최초 동의·빈 기록, sandbox·격리를 확인하며 수집·자동 시작을 켜거나 시스템 클립보드에 접근하지 않음
+- macOS/Linux 실제 앱 간 클립보드·전역 단축키·로그인 자동 실행, Wayland 및 전체 설치·제거 흐름은 추가 검수 대상
+- Windows 게시자 인증서와 Apple Developer ID·공증 미적용. OS의 첫 실행 보안 안내가 표시될 수 있음
 
-상세: [1.1 플랫폼 안내](docs/07_CROSS_PLATFORM.md), [검증 데이터](artifacts/qa/cross-platform-results.json).
+상세: [설치 안내](docs/INSTALL.md), [1.1 플랫폼 안내](docs/07_CROSS_PLATFORM.md), [릴리스별 파일·검증 기록](https://github.com/treeview-official/ClipBox/releases/tag/v1.1.0).
 
 ## 1.0.0 — 2026-10-22
 

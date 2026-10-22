@@ -1,61 +1,22 @@
 # 시작 가이드
 
-[프로젝트 소개](../README.md) · [문서 모음](README.md) · [플랫폼 안내](07_CROSS_PLATFORM.md)
+[설치 안내](INSTALL.md) · [프로젝트 소개](../README.md) · [문서 모음](README.md) · [플랫폼 안내](07_CROSS_PLATFORM.md)
 
-## 소스에서 실행
+## 설치 파일로 시작하기
 
-Node.js 24 이상과 npm을 준비하고, 저장소 루트에서 실행합니다. 앱 UI를 사용할 수 있는 그래픽 데스크톱 환경이 필요합니다.
+**ClipBox를 사용하려면 설치 파일만 받으면 됩니다. Node.js나 npm은 필요하지 않습니다.**
 
-```sh
-npm ci
-npm run dev
-```
-
-처음에는 Electron·빌드 도구를 내려받기 위한 인터넷 연결이 필요합니다. 실행된 앱의 기록 처리는 오프라인으로 동작합니다. 설치 훅을 비활성화한 환경에서는 다음 명령으로 Electron 런타임을 설치할 수 있습니다.
-
-```sh
-node node_modules/electron/install.js
-```
-
-React 화면 변경은 개발 서버에 반영됩니다. Electron main/preload를 수정한 뒤에는 개발 명령을 다시 실행하세요. 마지막 빌드를 실행하려면 `npm run build` 후 `npm start`를 사용합니다.
-
-## 패키지 빌드
-
-| 명령 | 결과 |
+| 내 컴퓨터 | 다운로드 |
 |---|---|
-| `npm run dist:win` | Windows x64 NSIS 설치 파일 |
-| `npm run dist:mac` | macOS x64·arm64 각각 DMG + ZIP; 실제 macOS에서 빌드 |
-| `npm run dist:linux` / `npm run dist:linux:archive` | Linux x64 TAR.GZ |
-| `npm run dist` / `npm run make` | 현재 OS 패키지 |
-| `npm run pack` | 현재 OS 실행 폴더 |
+| Windows x64 | [Windows 설치 파일](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-Setup-1.1.0.exe) |
+| Mac Apple Silicon | [Apple Silicon용 DMG](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-mac-arm64.dmg) |
+| Mac Intel | [Intel용 DMG](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-mac-x64.dmg) |
+| Ubuntu/Debian 계열 x64 | [Linux DEB 설치 파일](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-linux-amd64.deb) |
+| Fedora/RHEL 계열 x64 | [Linux RPM 설치 파일](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-linux-x86_64.rpm) |
 
-결과는 `release/1.1.0/`에 생성되며 Git 소스에는 포함하지 않습니다. [수동 CI 워크플로](../.github/workflows/build-desktop.yml)는 구성되어 있지만 실행 결과는 아직 없습니다.
+Windows는 설치 파일을 실행하고, Mac은 DMG에서 ClipBox를 Applications로 옮깁니다. Linux는 파일을 소프트웨어 설치 앱으로 엽니다. CPU 종류 확인과 처음 실행할 때의 보안 안내는 [단계별 설치 가이드](INSTALL.md)를 따라 주세요. 서명·공증 상태와 배포판별 실제 검증 범위는 [플랫폼 안내](07_CROSS_PLATFORM.md)에 있습니다.
 
-## 플랫폼별 실행
-
-### Windows
-
-생성된 `ClipBox-Setup-1.1.0.exe`를 실행해 설치하거나 `win-unpacked/ClipBox.exe`를 실행합니다. 설치 없이 사용하는 경우 **win-unpacked 폴더 전체**를 유지하세요.
-
-현재 생성·앱 시작 검증을 마친 기존 Windows 배포물은 **1.0**입니다. **1.1은 소스 E2E 검증을 마쳤으며 설치 EXE는 별도 빌드가 필요합니다.** 설치·제거 마법사와 재부팅 자동 시작 검수는 남아 있습니다. 서명되지 않은 개발 배포물에는 Windows 게시자·SmartScreen 안내가 표시될 수 있습니다.
-
-### macOS
-
-Mac에서 `npm run dist:mac`을 실행하면 Intel용 `x64`와 Apple Silicon용 `arm64`의 DMG·ZIP을 생성하도록 구성되어 있습니다. 생성한 DMG에서 ClipBox를 Applications로 복사하거나 ZIP의 `.app` 번들 전체를 유지합니다.
-
-현재 macOS 산출물 생성·실행·서명·공증은 수행하지 않았습니다. [macOS 검수 범위](07_CROSS_PLATFORM.md#macos)를 확인하세요.
-
-### Linux
-
-Linux x64 TAR.GZ 후보 아카이브는 생성했고 실행 형식과 권한을 확인했습니다. 네이티브 GUI·클립보드 실행 검수는 남아 있습니다. X11을 우선 검수 환경으로 사용합니다.
-
-```sh
-tar -xzf ClipBox-1.1.0-linux-x64.tar.gz
-cd ClipBox-1.1.0-linux-x64
-./app.clipbox.desktop
-```
-
-`app.clipbox.desktop`는 실행 파일 이름입니다. 함께 풀린 폴더·라이브러리를 유지하세요. 현재 배포 형식은 TAR.GZ이며 DEB/AppImage는 제공하지 않습니다. 앱 메뉴와 Wayland 단축키 포털에는 [Linux 실행 항목 등록](07_CROSS_PLATFORM.md#linux-실행-항목-등록)이 필요할 수 있습니다.
+설치를 마쳤다면 아래에서 첫 기록을 만들어 보세요.
 
 ## 첫 기록 만들기
 
@@ -110,6 +71,30 @@ Linux는 로그인 자동 실행으로 시작할 때도 관리 창을 표시합�
 동일 내용은 해시로 병합하며 즐겨찾기를 유지합니다. 다른 내용 이후 다시 복사하면 기존 항목을 최신으로 이동합니다. 앱 자체 재복사는 중복 기록을 만들지 않습니다. 같은 클립보드 상태의 명시적 재복사까지 구분하지는 못합니다.
 
 텍스트는 약 400ms, 유지 중인 이미지는 약 1.2초 간격으로 확인합니다. 빠르게 바뀌는 중간 내용은 놓칠 수 있습니다. 제한은 텍스트 2MiB, PNG 10MiB·3,200만 화소·한 변 16,384px입니다. 클립보드 파일·복합 HTML/RTF 보존·출처 앱별 제외·암호화는 현재 범위 밖입니다.
+
+## 개발자용 실행
+
+아래는 소스 코드를 수정하거나 직접 빌드할 때만 필요한 절차입니다. Node.js 24 이상과 npm, 그래픽 데스크톱 환경에서 저장소 루트의 명령을 실행합니다.
+
+```sh
+npm ci
+npm run dev
+```
+
+최초 의존성 설치에는 인터넷이 필요합니다. 설치 훅이 비활성화된 환경에서는 `node node_modules/electron/install.js`로 Electron 런타임을 설치할 수 있습니다. React 수정은 개발 서버에 반영되며 Electron main/preload 수정 뒤에는 개발 명령을 다시 실행하세요. 마지막 빌드를 실행하려면 `npm run build` 후 `npm start`를 사용합니다.
+
+## 패키지 빌드
+
+| 명령 | 결과 |
+|---|---|
+| `npm run dist:win` | Windows x64 NSIS 설치 파일 |
+| `npm run dist:mac` | macOS x64·arm64 각각 DMG + ZIP; macOS에서 빌드 |
+| `npm run dist:linux` | Linux x64 DEB·RPM·TAR.GZ |
+| `npm run dist:linux:archive` | Linux x64 TAR.GZ만 생성 |
+| `npm run dist` / `npm run make` | 현재 OS 패키지 |
+| `npm run pack` | 현재 OS 실행 폴더 |
+
+결과는 `release/1.1.0/`에 생성되며 Git 소스에는 포함하지 않습니다. [패키지 워크플로](../.github/workflows/build-desktop.yml)와 [플랫폼별 검증 결과](07_CROSS_PLATFORM.md)에서 빌드 환경과 확인 범위를 볼 수 있습니다.
 
 ## 검증 실행
 

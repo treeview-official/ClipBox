@@ -1,0 +1,78 @@
+name: Prepare draft release
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Successful Build desktop packages run ID
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: prepare-clipbox-release
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      # The selected build can predate this helper. Only the helper comes from
+      # main; release version and target commit come from the verified build.
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '24'
+      - name: Verify build provenance and read its package version
+        id: build
+        env:
+          RUN_ID: ${{ inputs.run_id }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/prepare-release.mjs metadata
+      - name: Download native install packages
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ steps.build.outputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: ClipBox-*
+          merge-multiple: true
+          path: staged/packages
+      - name: Download native startup evidence
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ steps.build.outputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: startup-*
+          merge-multiple: true
+          path: staged/evidence
+      - name: Validate all packages and prepare checksums and release notes
+        env:
+          MANIFEST_VERSION: ${{ steps.build.outputs.version }}
+          BUILD_SHA: ${{ steps.build.outputs.build_sha }}
+          BUILD_RUN_ID: ${{ steps.build.outputs.run_id }}
+          BUILD_RUN_URL: ${{ steps.build.outputs.run_url }}
+        run: node scripts/prepare-release.mjs stage
+      - name: Create draft release for review
+        env:
+          VERSION: ${{ steps.build.outputs.version }}
+          BUILD_SHA: ${{ steps.build.outputs.build_sha }}
+          MANIFEST_VERSION: ${{ steps.build.outputs.version }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/prepare-release.mjs check-release
+          gh release create "v$VERSION" release-upload/* \
+            --repo "$GITHUB_REPOSITORY" --draft --target "$BUILD_SHA" \
+            --title "ClipBox $VERSION 운영체제별 설치 파일" \
+            --notes-file release-notes.md
+          printf 'Draft release created for review: %s\n' "https://github.com/$GITHUB_REPOSITORY/releases/tag/v$VERSION" >> "$GITHUB_STEP_SUMMARY"
