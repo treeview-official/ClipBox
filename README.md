@@ -6,7 +6,7 @@
 
 텍스트·링크·이미지를 내 컴퓨터에 보관하고, 단축키로 찾아 다시 복사하는 데스크톱 클립보드 매니저입니다. 계정이나 서버 없이 동작합니다.
 
-[설치 안내](docs/INSTALL.md) · [사용법](docs/GETTING_STARTED.md) · [업데이트·문의](docs/08_UPDATES.md) · [문서 모음](docs/README.md) · [플랫폼 지원](docs/07_CROSS_PLATFORM.md) · [변경 이력](CHANGELOG.md)
+[설치 안내](docs/INSTALL.md) · [사용법](docs/GETTING_STARTED.md) · [화면 둘러보기](docs/SCREENSHOTS.md) · [업데이트·문의](docs/08_UPDATES.md) · [문서 모음](docs/README.md) · [플랫폼 지원](docs/07_CROSS_PLATFORM.md) · [변경 이력](CHANGELOG.md)
 
 ## 다운로드 · 바로 설치하기
 
@@ -22,9 +22,9 @@
 
 Mac 종류를 모르겠다면 **Apple 메뉴 → 이 Mac에 관하여**에서 칩 또는 Intel 프로세서를 확인하세요. Windows 개발자 인증서 서명과 Apple Developer ID 서명·공증이 없어 첫 실행 때 보안 확인이 추가될 수 있습니다. [OS별 설치와 보안 안내](docs/INSTALL.md)에 순서대로 정리했습니다. [전체 릴리스 파일](https://github.com/treeview-official/ClipBox/releases/tag/v1.2.0)
 
-![ClipBox 기록 관리 화면](artifacts/qa/02-history.png)
+![ClipBox 1.2.0 — 기록 목록, 즐겨찾기와 상세 미리보기](docs/images/v1.2.0/history.png)
 
-*Windows 1.1 실제 테스트 화면입니다. 기록은 합성 테스트 데이터이며, 단축키 충돌 안내가 표시된 상태입니다.*
+*ClipBox 1.2.0 실제 Windows 실행 화면입니다. 공개용 예시 기록을 사용하고 수집을 일시정지한 상태로 촬영했습니다.*
 
 ## 1.2의 새 기능
 
@@ -34,6 +34,20 @@ Mac 종류를 모르겠다면 **Apple 메뉴 → 이 Mac에 관하여**에서 �
 - 요청사항·오류 문의: **tree_view@naver.com**
 
 **1.0·1.1 사용자는 위 1.2 설치 파일로 한 번 설치하세요.** 그다음 버전부터 앱 안에서 업데이트를 확인할 수 있습니다. [업데이트 순서와 OS별 차이](docs/08_UPDATES.md)
+
+## 화면으로 둘러보기
+
+### 업데이트 확인과 문의
+
+현재 버전과 GitHub에 공개된 최신 버전을 확인합니다. 요청사항·오류 문의 주소도 같은 화면에서 찾을 수 있습니다.
+
+![ClipBox 1.2.0 — 실제 최신 버전 확인 결과와 문의 이메일](docs/images/v1.2.0/updates-and-contact.png)
+
+| 패치노트 | 다크 테마 |
+|---|---|
+| [![앱 안에서 보는 버전별 패치노트](docs/images/v1.2.0/patch-notes.png)](docs/images/v1.2.0/patch-notes.png) | [![ClipBox 다크 테마의 기록 관리 화면](docs/images/v1.2.0/history-dark.png)](docs/images/v1.2.0/history-dark.png) |
+
+[**퀵 팝업·환경설정·OS별 실제 실행 화면 더 보기 →**](docs/SCREENSHOTS.md)
 
 ## 주요 기능
 

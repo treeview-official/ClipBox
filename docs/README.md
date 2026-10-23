@@ -1,12 +1,13 @@
 # 문서 모음
 
-처음 사용하는 경우 [설치 가이드](INSTALL.md)에서 내 OS용 파일을 받으세요. 설치 후 사용법은 [시작 가이드](GETTING_STARTED.md), 지원 환경과 확인된 범위는 [1.1 플랫폼 안내](07_CROSS_PLATFORM.md)에 있습니다.
+처음 사용하는 경우 [설치 가이드](INSTALL.md)에서 내 OS용 파일을 받으세요. 설치 후 사용법은 [시작 가이드](GETTING_STARTED.md), 최신 기능과 검증 범위는 [1.2 업데이트 안내](08_UPDATES.md)에 있습니다.
 
 ## 현재 사용법과 상태
 
 | 문서 | 내용 |
 |---|---|
 | [프로젝트 소개](../README.md) | 주요 기능, 빠른 실행, 지원 상태 |
+| [1.2.0 화면 갤러리](SCREENSHOTS.md) | 기록 관리·퀵 팝업·설정·업데이트·다크 테마·OS별 실행 화면 |
 | [설치 가이드](INSTALL.md) | 직접 다운로드, Windows·Mac·Linux 설치, 첫 실행 보안 안내 |
 | [1.2 업데이트·문의](08_UPDATES.md) | 업데이트 순서, OS별 설치, 패치노트, 문의 이메일, 검증 범위 |
 | [시작 가이드](GETTING_STARTED.md) | 실행·설치, 기록 사용법, 설정·개인정보, 문제 해결 |
@@ -33,6 +34,8 @@
 
 | 자료 | 범위 |
 |---|---|
+| [1.2 설치된 앱 검증](08_UPDATES.md#설치된-12-앱-검증) | Windows·Mac 두 CPU·Ubuntu의 패키지 시작과 새 UI 검증 |
+| [1.2 소개 이미지 촬영](images/v1.2.0/capture.json) | 예시 기록을 사용한 실제 UI 캡처와 공개 최신 버전 확인 |
 | [1.0 Windows 검증](06_VERIFICATION.md) | 당시의 소스·단축키·배포 실행 검사; 역사적 기록 |
 | [1.1 검증 요약 JSON](../artifacts/qa/cross-platform-results.json) | Windows 단위 37개·E2E 15개 통과, macOS·Ubuntu 단위 각 39개 통과, 실제 GUI 미검증 범위 |
 | [GitHub 소스 CI](https://github.com/treeview-official/ClipBox/actions/workflows/ci.yml) | Windows·macOS·Ubuntu 타입 검사·단위 검사·프로덕션 소스 빌드 |
@@ -42,13 +45,24 @@
 
 과거 Windows 배포 실행 성공을 macOS/Linux의 네이티브 실행 성공이나 1.1 Windows 설치 마법사 검증으로 해석하지 않습니다. 실제 OS별 설치·로그인 자동 실행·포커스 검수는 [남은 검수 항목](07_CROSS_PLATFORM.md#데이터와-남은-검수)에 정리했습니다.
 
-## 실제 화면
+## 실제 화면 · 1.2.0
 
-아래 이미지는 Windows에서 합성 데이터로 실행한 QA 화면입니다. 1.1 캡처 일부에는 실제 전역 단축키 충돌 안내가 표시되어 있습니다.
+[**최신 화면 갤러리**](SCREENSHOTS.md)에서 주요 기능과 Windows·Mac·Linux 화면을 함께 볼 수 있습니다. 아래 소개 이미지는 1.2.0의 실제 Windows 실행 화면입니다. 예시 기록만 별도 임시 프로필에 넣고 수집을 끈 채 촬영했습니다.
 
-- [기록 관리](../artifacts/qa/02-history.png)
-- [빠른 팝업](../artifacts/qa/05-quick.png)
-- [다크 테마 설정](../artifacts/qa/04-dark.png)
-- [850×560 창](../artifacts/qa/06-compact.png)
+| 기록 관리 | 패치노트 |
+|---|---|
+| [![1.2.0 기록 관리](images/v1.2.0/history.png)](images/v1.2.0/history.png) | [![1.2.0 패치노트](images/v1.2.0/patch-notes.png)](images/v1.2.0/patch-notes.png) |
+
+- [빠른 팝업](images/v1.2.0/quick-popup.png)
+- [환경설정](images/v1.2.0/settings.png)
+- [업데이트 확인·문의](images/v1.2.0/updates-and-contact.png)
+- [다크 테마](images/v1.2.0/history-dark.png)
+- [OS별 설치된 앱 화면](SCREENSHOTS.md#os별-설치된-앱)
+
+### 이전 버전과 검증용 이미지
+
+`artifacts/qa/`는 당시 검증 자료를 보존하는 폴더입니다. [1.1 기록 관리](../artifacts/qa/02-history.png), [1.1 퀵 팝업](../artifacts/qa/05-quick.png), [1.1 다크 설정](../artifacts/qa/04-dark.png), [1.1 작은 창](../artifacts/qa/06-compact.png)은 최신 소개 이미지와 구분합니다. 일부에는 당시의 단축키 충돌 안내가 포함되어 있습니다.
+
+`artifacts/qa/v1.2.0/`의 업데이트 테스트에는 **합성 미래 버전 v9.0.0**이 등장할 수 있습니다. 업데이트 상태를 검사하기 위한 대역 데이터이며 공개 배포 버전이 아닙니다. 현재 기능 소개에는 위 `docs/images/v1.2.0/` 이미지를 사용합니다.
 
 빌드 파일은 저장소의 소스와 분리하며, 생성 명령과 결과 경로는 [시작 가이드](GETTING_STARTED.md#패키지-빌드)를 참고하세요.

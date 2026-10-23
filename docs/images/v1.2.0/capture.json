@@ -1,0 +1,20 @@
+{
+  "version": "1.2.0",
+  "capturedAt": "2026-10-23T07:00:56.412Z",
+  "platform": "win32",
+  "mode": "Electron production source build; synthetic seeded records; isolated temporary profile; collection disabled and paused",
+  "updateCheck": {
+    "source": "public GitHub latest release via actual main/preload IPC",
+    "phase": "current",
+    "version": "1.2.0"
+  },
+  "screenshots": [
+    "history.png",
+    "quick-popup.png",
+    "settings.png",
+    "updates-and-contact.png",
+    "patch-notes.png",
+    "history-dark.png"
+  ],
+  "rendererErrors": []
+}
