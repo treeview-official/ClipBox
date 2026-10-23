@@ -40,7 +40,14 @@ export interface AppStatus {
   autoStartSupported: boolean;
   platformNotice: string | null;
 }
-export type ManagerPage = 'history' | 'settings';
+export type ManagerPage = 'history' | 'settings' | 'release-notes';
+export type UpdatePhase = 'idle' | 'checking' | 'current' | 'available' | 'downloading' | 'ready' | 'opening' | 'opened' | 'error' | 'unsupported';
+export type InstallerFormat = 'exe' | 'dmg' | 'deb' | 'rpm' | 'tar.gz';
+export interface UpdateRelease { version: string; notes: string; publishedAt: string; filename: string; bytes: number; format: InstallerFormat }
+export interface UpdateState {
+  phase: UpdatePhase; currentVersion: string; release?: UpdateRelease;
+  progress: number; downloadedBytes: number; message: string;
+}
 export interface ClipBoxAPI {
   list: (query?: ListQuery) => Promise<ListResult>;
   get: (id: string) => Promise<ClipDetail | null>;
@@ -52,6 +59,14 @@ export interface ClipBoxAPI {
   updateSettings: (partial: Partial<Settings>) => Promise<AppStatus>;
   windowAction: (action: 'minimize' | 'maximize' | 'close' | 'hide' | 'quit' | 'quick') => Promise<void>;
   openManager: (page?: ManagerPage) => Promise<void>;
+  readUpdate: () => Promise<UpdateState>;
+  checkUpdate: () => Promise<UpdateState>;
+  downloadUpdate: () => Promise<UpdateState>;
+  cancelUpdate: () => Promise<void>;
+  installUpdate: () => Promise<UpdateState>;
+  showUpdateFile: () => Promise<void>;
+  openSupport: () => Promise<void>;
+  onUpdate: (callback: (state: UpdateState) => void) => () => void;
   onChanged: (callback: () => void) => () => void;
   onNavigate: (callback: (page: ManagerPage) => void) => () => void;
   onShown: (callback: () => void) => () => void;

@@ -1,0 +1,14 @@
+{
+  "version": "1.2.0",
+  "result": "passed",
+  "platform": "win32",
+  "transport": "synthetic responses in isolated main process; no installer executed",
+  "checks": [
+    "Titlebar status and window controls share a vertical center; collection stays off",
+    "Offline patch notes and support email are visible without opening a mail client",
+    "Update check, newer version offer, cancellation, retry and verified download through real preload IPC; development install blocked",
+    "Update state survives page navigation and unsaved settings block installation",
+    "Offline failure is retryable; equal/older versions do not offer an install",
+    "Compact navigation and support stay reachable; no clipboard access, records or renderer errors"
+  ]
+}

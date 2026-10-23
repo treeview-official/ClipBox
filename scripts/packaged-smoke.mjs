@@ -139,6 +139,7 @@ async function main() {
 
     step = 'renderer-and-preload';
     const page = await application.firstWindow({ timeout: 30_000 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.waitForFunction(() => typeof window.clipbox?.readStatus === 'function' && typeof window.clipbox?.list === 'function', undefined, { timeout: 30_000 });
     const status = await page.evaluate(() => window.clipbox.readStatus());
     assert.equal(status.platform, process.platform);
@@ -189,6 +190,32 @@ async function main() {
       await page.screenshot({ path: path.join(output, screenshotName) });
       evidence.screenshot = screenshotName;
     }
+    step = 'offline-update-and-release-ui';
+    await page.getByRole('button', { name: '지금은 기록하지 않고 둘러보기' }).click();
+    const update = await page.evaluate(() => window.clipbox.readUpdate());
+    assert.equal(update.phase, 'idle');
+    assert.equal(update.currentVersion, manifest.version);
+    const aligned = await page.evaluate(() => {
+      const chip = document.querySelector('.status-chip').getBoundingClientRect();
+      const controls = document.querySelector('.window-controls').getBoundingClientRect();
+      return Math.abs(chip.y + chip.height / 2 - controls.y - controls.height / 2) < 1;
+    });
+    assert.equal(aligned, true, 'Status chip and window controls must share their vertical center.');
+    await page.getByRole('button', { name: '패치노트', exact: true }).click();
+    await expect(page.getByRole('heading', { name: '패치노트', exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: '업데이트 확인', exact: true })).toBeVisible();
+    await expect(page.getByText('tree_view@naver.com', { exact: true })).toBeVisible();
+    await expect(page.locator('.release-meta').first()).toContainText(`v${manifest.version}`);
+    if (values.screenshot) await page.screenshot({ path: path.join(output, `${process.platform}-${process.arch}-releases.png`) });
+    await page.getByRole('button', { name: '환경설정', exact: true }).click();
+    await page.getByRole('button', { name: '업데이트 확인', exact: true }).scrollIntoViewIfNeeded();
+    await expect(page.getByRole('region', { name: '프로그램 업데이트' })).toBeVisible();
+    const finalStatus = await page.evaluate(() => window.clipbox.readStatus());
+    assert.equal(finalStatus.settings.collectionEnabled, false);
+    assert.equal((await page.evaluate(() => window.clipbox.list())).total, 0);
+    assert.equal(rendererErrors.length, 0);
+    checks.push('Offline update controls, release notes, support email and titlebar alignment');
+    evidence.updateUi = 'passed';
     evidence.result = 'passed';
   } catch (error) {
     failure = error;

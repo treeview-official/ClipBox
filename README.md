@@ -6,25 +6,34 @@
 
 텍스트·링크·이미지를 내 컴퓨터에 보관하고, 단축키로 찾아 다시 복사하는 데스크톱 클립보드 매니저입니다. 계정이나 서버 없이 동작합니다.
 
-[설치 안내](docs/INSTALL.md) · [사용법](docs/GETTING_STARTED.md) · [문서 모음](docs/README.md) · [플랫폼 지원](docs/07_CROSS_PLATFORM.md) · [변경 이력](CHANGELOG.md)
+[설치 안내](docs/INSTALL.md) · [사용법](docs/GETTING_STARTED.md) · [업데이트·문의](docs/08_UPDATES.md) · [문서 모음](docs/README.md) · [플랫폼 지원](docs/07_CROSS_PLATFORM.md) · [변경 이력](CHANGELOG.md)
 
 ## 다운로드 · 바로 설치하기
 
 **설치 파일만 받으면 됩니다. Node.js·npm을 따로 설치할 필요가 없습니다.**
 
-| 내 컴퓨터 | ClipBox 1.1.0 다운로드 | 설치 방법 |
+| 내 컴퓨터 | ClipBox 1.2.0 다운로드 | 설치 방법 |
 |---|---|---|
-| Windows 10/11 · x64 | [**Windows 설치 파일**](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-Setup-1.1.0.exe) | `.exe` 실행 → 설치 → 시작 메뉴에서 ClipBox |
-| Mac · Apple Silicon | [**Apple Silicon용 DMG**](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-mac-arm64.dmg) | DMG 열기 → Applications로 끌어다 놓기 |
-| Mac · Intel | [**Intel용 DMG**](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-mac-x64.dmg) | DMG 열기 → Applications로 끌어다 놓기 |
-| Linux · Ubuntu/Debian x64 | [**DEB 설치 파일**](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-linux-amd64.deb) | 파일을 소프트웨어 설치 앱으로 열기 |
-| Linux · Fedora/RHEL x64 | [**RPM 설치 파일**](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-linux-x86_64.rpm) | 파일을 소프트웨어 설치 앱으로 열기 |
+| Windows 10/11 · x64 | [**Windows 설치 파일**](https://github.com/treeview-official/ClipBox/releases/download/v1.2.0/ClipBox-Setup-1.2.0.exe) | `.exe` 실행 → 설치 → 시작 메뉴에서 ClipBox |
+| Mac · Apple Silicon | [**Apple Silicon용 DMG**](https://github.com/treeview-official/ClipBox/releases/download/v1.2.0/ClipBox-1.2.0-mac-arm64.dmg) | DMG 열기 → Applications로 끌어다 놓기 |
+| Mac · Intel | [**Intel용 DMG**](https://github.com/treeview-official/ClipBox/releases/download/v1.2.0/ClipBox-1.2.0-mac-x64.dmg) | DMG 열기 → Applications로 끌어다 놓기 |
+| Linux · Ubuntu/Debian x64 | [**DEB 설치 파일**](https://github.com/treeview-official/ClipBox/releases/download/v1.2.0/ClipBox-1.2.0-linux-amd64.deb) | 파일을 소프트웨어 설치 앱으로 열기 |
+| Linux · Fedora/RHEL x64 | [**RPM 설치 파일**](https://github.com/treeview-official/ClipBox/releases/download/v1.2.0/ClipBox-1.2.0-linux-x86_64.rpm) | 파일을 소프트웨어 설치 앱으로 열기 |
 
-Mac 종류를 모르겠다면 **Apple 메뉴 → 이 Mac에 관하여**에서 칩 또는 Intel 프로세서를 확인하세요. Windows 개발자 인증서 서명과 Apple Developer ID 서명·공증이 없어 첫 실행 때 보안 확인이 추가될 수 있습니다. [OS별 설치와 보안 안내](docs/INSTALL.md)에 순서대로 정리했습니다. [전체 릴리스 파일](https://github.com/treeview-official/ClipBox/releases/tag/v1.1.0)
+Mac 종류를 모르겠다면 **Apple 메뉴 → 이 Mac에 관하여**에서 칩 또는 Intel 프로세서를 확인하세요. Windows 개발자 인증서 서명과 Apple Developer ID 서명·공증이 없어 첫 실행 때 보안 확인이 추가될 수 있습니다. [OS별 설치와 보안 안내](docs/INSTALL.md)에 순서대로 정리했습니다. [전체 릴리스 파일](https://github.com/treeview-official/ClipBox/releases/tag/v1.2.0)
 
 ![ClipBox 기록 관리 화면](artifacts/qa/02-history.png)
 
 *Windows 1.1 실제 테스트 화면입니다. 기록은 합성 테스트 데이터이며, 단축키 충돌 안내가 표시된 상태입니다.*
+
+## 1.2의 새 기능
+
+- 상단 기록 상태와 창 제어 버튼 정렬 개선
+- **환경설정 → 업데이트 확인**에서 최신 버전 확인·다운로드·OS 설치 화면 연결
+- **환경설정 아래 → 패치노트**에서 변경 내역 확인
+- 요청사항·오류 문의: **tree_view@naver.com**
+
+**1.0·1.1 사용자는 위 1.2 설치 파일로 한 번 설치하세요.** 그다음 버전부터 앱 안에서 업데이트를 확인할 수 있습니다. [업데이트 순서와 OS별 차이](docs/08_UPDATES.md)
 
 ## 주요 기능
 
@@ -37,7 +46,7 @@ Mac 종류를 모르겠다면 **Apple 메뉴 → 이 Mac에 관하여**에서 �
 
 ## 플랫폼 지원 상태
 
-현재 소스 버전은 **1.1.0**입니다. 각 OS의 네이티브 CI에서 설치 패키지 생성과 설치된 앱의 시작을 확인했습니다.
+현재 소스 버전은 **1.2.0**입니다. 아래 표는 1.1부터 지원하는 플랫폼과 기존 검증 범위이며, 이번 변경과 검증은 [1.2 업데이트 안내](docs/08_UPDATES.md)를 참고하세요.
 
 | 플랫폼 | 패키지 | 확인된 범위 |
 |---|---|---|
@@ -45,7 +54,7 @@ Mac 종류를 모르겠다면 **Apple 메뉴 → 이 Mac에 관하여**에서 �
 | macOS Apple Silicon / Intel | `.dmg` / `.zip` | macOS 15의 각 CPU에서 DMG 마운트·앱 복사 후 네이티브 시작 검사 통과 |
 | Linux x64 | `.deb` / `.rpm` / `.tar.gz` | Ubuntu 24.04에서 DEB 설치 후 Xvfb/X11 시작 검사 통과. RPM은 생성·메타데이터 확인 |
 
-한국어 글꼴을 포함한 [최종 패키지 CI](https://github.com/treeview-official/ClipBox/actions/runs/39761371062)의 네 작업이 모두 통과했습니다. 설치된 앱의 시작·보안 설정·로컬 한국어 글꼴 로드를 각 환경에서 확인했습니다.
+1.1의 한국어 글꼴을 포함한 [패키지 CI](https://github.com/treeview-official/ClipBox/actions/runs/39761371062)의 네 작업이 모두 통과했습니다. 설치된 앱의 시작·보안 설정·로컬 한국어 글꼴 로드를 각 환경에서 확인했습니다.
 
 Linux는 **X11 우선**입니다. Wayland의 백그라운드 클립보드 수집·전역 단축키·팝업 포커스는 데스크톱과 포털에 따라 제한됩니다. macOS·Linux의 실제 앱 간 클립보드·전역 단축키·로그인 자동 실행, Fedora/RHEL의 RPM 설치·실행, 대화형 설치·제거 흐름은 추가 검수 대상입니다. [상세 상태와 검수 항목](docs/07_CROSS_PLATFORM.md)을 확인하세요.
 
@@ -86,11 +95,11 @@ npm run build
 | `npm run dist:linux` | Linux x64 DEB·RPM·TAR.GZ; Linux에서 실행 |
 | `npm run pack` | 현재 OS의 실행 폴더 |
 
-산출물은 `release/1.1.0/`에 생성되며 Git 소스에는 포함하지 않습니다. `npm run dist`는 현재 OS를 선택하고, `npm run dist:linux:archive`는 TAR.GZ만 생성합니다. [CI](.github/workflows/ci.yml)는 main 푸시·PR에서 세 운영체제의 타입 검사·단위 검사·빌드를 실행합니다. [패키지 빌드 워크플로](.github/workflows/build-desktop.yml)는 설치 파일과 패키지 검증을 담당합니다. 최신 실행 결과는 [플랫폼 안내](docs/07_CROSS_PLATFORM.md)를 확인하세요.
+산출물은 `release/1.2.0/`에 생성되며 Git 소스에는 포함하지 않습니다. `npm run dist`는 현재 OS를 선택하고, `npm run dist:linux:archive`는 TAR.GZ만 생성합니다. [CI](.github/workflows/ci.yml)는 main 푸시·PR에서 세 운영체제의 타입 검사·단위 검사·빌드를 실행합니다. [패키지 빌드 워크플로](.github/workflows/build-desktop.yml)는 설치 파일과 패키지 검증을 담당합니다. 최신 실행 결과는 [플랫폼 안내](docs/07_CROSS_PLATFORM.md)를 확인하세요.
 
-**소스 검증:** GitHub의 Windows·macOS·Ubuntu에서 타입 검사와 프로덕션 소스 빌드가 통과했습니다. 단위 검사는 Windows **37개 통과·2개 건너뜀**, macOS·Ubuntu **각 39개 통과**입니다. 로컬 Windows 소스 E2E **15개도 통과**했습니다. [최종 소스 CI 실행 결과](https://github.com/treeview-official/ClipBox/actions/runs/39761357290)를 확인하세요. `npm run test:e2e`는 Windows 기준이며 시스템 클립보드를 사용하는 검사입니다.
+**기존 1.1 소스 검증:** GitHub의 Windows·macOS·Ubuntu에서 타입 검사와 프로덕션 소스 빌드가 통과했습니다. 단위 검사는 Windows **37개 통과·2개 건너뜀**, macOS·Ubuntu **각 39개 통과**입니다. 로컬 Windows 소스 E2E **15개도 통과**했습니다. [최종 소스 CI 실행 결과](https://github.com/treeview-official/ClipBox/actions/runs/39761357290)를 확인하세요. `npm run test:e2e`는 Windows 기준이며 시스템 클립보드를 사용하는 검사입니다.
 
-**패키지 검증:** 설치된 앱의 시작 검사는 네이티브 버전·아키텍처, 관리 창·제한된 IPC, 수집 OFF 상태의 최초 동의·빈 기록, sandbox와 번들 한국어 글꼴 로드를 확인합니다. 클립보드 수집이나 자동 시작을 켜지 않으며, 실제 앱 간 복사·붙여넣기 검수와 구분합니다. [플랫폼별 검증 범위](docs/07_CROSS_PLATFORM.md)에 자세히 기록했습니다.
+**패키지 검증 방식:** 설치된 앱의 시작 검사는 네이티브 버전·아키텍처, 관리 창·제한된 IPC, 수집 OFF 상태의 최초 동의·빈 기록, sandbox와 번들 한국어 글꼴 로드를 확인합니다. 클립보드 수집이나 자동 시작을 켜지 않으며, 실제 앱 간 복사·붙여넣기 검수와 구분합니다. [플랫폼별 검증 범위](docs/07_CROSS_PLATFORM.md)에 자세히 기록했습니다.
 
 ## 개인정보와 저장
 

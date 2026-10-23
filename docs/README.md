@@ -8,6 +8,7 @@
 |---|---|
 | [프로젝트 소개](../README.md) | 주요 기능, 빠른 실행, 지원 상태 |
 | [설치 가이드](INSTALL.md) | 직접 다운로드, Windows·Mac·Linux 설치, 첫 실행 보안 안내 |
+| [1.2 업데이트·문의](08_UPDATES.md) | 업데이트 순서, OS별 설치, 패치노트, 문의 이메일, 검증 범위 |
 | [시작 가이드](GETTING_STARTED.md) | 실행·설치, 기록 사용법, 설정·개인정보, 문제 해결 |
 | [1.1 플랫폼 안내](07_CROSS_PLATFORM.md) | macOS/Linux 동작, Linux 실행 항목, 빌드·검증 범위 |
 | [변경 이력](../CHANGELOG.md) | 버전별 기능과 배포 상태 |

@@ -6,21 +6,25 @@
 
 ## 다운로드
 
-| 내 컴퓨터 | ClipBox 1.1.0 설치 파일 |
+| 내 컴퓨터 | ClipBox 1.2.0 설치 파일 |
 |---|---|
-| Windows 10/11 · 64비트 Intel/AMD | [Windows 설치 파일 받기 (.exe)](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-Setup-1.1.0.exe) |
-| Mac · Apple Silicon | [Apple Silicon Mac용 받기 (.dmg)](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-mac-arm64.dmg) |
-| Mac · Intel | [Intel Mac용 받기 (.dmg)](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-mac-x64.dmg) |
-| Linux · Ubuntu/Debian 계열 · 64비트 Intel/AMD | [Linux DEB 설치 파일 받기 (.deb)](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-linux-amd64.deb) |
-| Linux · Fedora/RHEL 계열 · 64비트 Intel/AMD | [Linux RPM 설치 파일 받기 (.rpm)](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-linux-x86_64.rpm) |
+| Windows 10/11 · 64비트 Intel/AMD | [Windows 설치 파일 받기 (.exe)](https://github.com/treeview-official/ClipBox/releases/download/v1.2.0/ClipBox-Setup-1.2.0.exe) |
+| Mac · Apple Silicon | [Apple Silicon Mac용 받기 (.dmg)](https://github.com/treeview-official/ClipBox/releases/download/v1.2.0/ClipBox-1.2.0-mac-arm64.dmg) |
+| Mac · Intel | [Intel Mac용 받기 (.dmg)](https://github.com/treeview-official/ClipBox/releases/download/v1.2.0/ClipBox-1.2.0-mac-x64.dmg) |
+| Linux · Ubuntu/Debian 계열 · 64비트 Intel/AMD | [Linux DEB 설치 파일 받기 (.deb)](https://github.com/treeview-official/ClipBox/releases/download/v1.2.0/ClipBox-1.2.0-linux-amd64.deb) |
+| Linux · Fedora/RHEL 계열 · 64비트 Intel/AMD | [Linux RPM 설치 파일 받기 (.rpm)](https://github.com/treeview-official/ClipBox/releases/download/v1.2.0/ClipBox-1.2.0-linux-x86_64.rpm) |
 
-[전체 배포 파일과 릴리스 설명](https://github.com/treeview-official/ClipBox/releases/tag/v1.1.0)에서도 받을 수 있습니다. GitHub의 **Assets**에서 파일을 고를 때 **Source code**는 개발용이므로 위 설치 파일을 선택하세요.
+[전체 배포 파일과 릴리스 설명](https://github.com/treeview-official/ClipBox/releases/tag/v1.2.0)에서도 받을 수 있습니다. GitHub의 **Assets**에서 파일을 고를 때 **Source code**는 개발용이므로 위 설치 파일을 선택하세요.
 
 Windows 개발자 인증서 서명과 Apple Developer ID 서명·공증은 적용되지 않았습니다. 처음 실행할 때 보안 확인이 추가될 수 있습니다. 실제 검증 범위는 [플랫폼 안내](07_CROSS_PLATFORM.md)를 확인하세요. Fedora/RHEL의 RPM 네이티브 설치·실행은 별도 검수가 필요합니다.
 
+## 기존 사용자 업데이트
+
+1.0·1.1에서는 ClipBox를 완전히 종료한 뒤 위 1.2 설치 파일로 설치하세요. 기존 기록·설정은 유지됩니다. 1.2부터 **환경설정 → 업데이트 확인**을 사용할 수 있습니다. [업데이트·패치노트·문의 안내](08_UPDATES.md)
+
 ## Windows
 
-1. 위의 **Windows 설치 파일 받기**를 눌러 `ClipBox-Setup-1.1.0.exe`를 내려받습니다.
+1. 위의 **Windows 설치 파일 받기**를 눌러 `ClipBox-Setup-1.2.0.exe`를 내려받습니다.
 2. 다운로드한 파일을 두 번 클릭합니다.
 3. 설치 안내에 따라 설치 위치를 선택하고 **설치**를 누릅니다.
 4. 설치를 마치면 시작 메뉴에서 **ClipBox**를 검색해 실행합니다. 생성한 바탕 화면 바로 가기도 사용할 수 있습니다.
@@ -63,7 +67,7 @@ macOS 버전이나 관리 정책에 따라 표시가 다를 수 있습니다. �
 
 ### Ubuntu/Debian 계열
 
-1. **Linux DEB 설치 파일 받기**를 눌러 `ClipBox-1.1.0-linux-amd64.deb`를 내려받습니다.
+1. **Linux DEB 설치 파일 받기**를 눌러 `ClipBox-1.2.0-linux-amd64.deb`를 내려받습니다.
 2. 파일을 두 번 클릭해 소프트웨어 설치 앱으로 엽니다. 압축 프로그램이 열린다면 파일을 오른쪽 클릭하고 **다른 프로그램으로 열기**에서 소프트웨어 설치 앱을 선택합니다.
 3. **설치**를 누르고 필요하면 계정 암호를 입력합니다.
 4. 앱 목록에서 **ClipBox**를 찾아 실행합니다.
@@ -71,7 +75,7 @@ macOS 버전이나 관리 정책에 따라 표시가 다를 수 있습니다. �
 설치 앱으로 열리지 않으면 다운로드한 파일이 있는 폴더에서 아래 명령을 사용할 수 있습니다.
 
 ```sh
-sudo apt install ./ClipBox-1.1.0-linux-amd64.deb
+sudo apt install ./ClipBox-1.2.0-linux-amd64.deb
 ```
 
 ### Fedora/RHEL 계열
@@ -79,7 +83,7 @@ sudo apt install ./ClipBox-1.1.0-linux-amd64.deb
 RPM 파일을 내려받아 배포판의 소프트웨어 설치 앱으로 열고 설치합니다. 해당 배포판에서의 실제 설치·실행은 아직 별도 검수 대상입니다. 터미널을 사용한다면 파일이 있는 폴더에서 실행합니다.
 
 ```sh
-sudo dnf install ./ClipBox-1.1.0-linux-x86_64.rpm
+sudo dnf install ./ClipBox-1.2.0-linux-x86_64.rpm
 ```
 
 ### Linux에서 알아둘 점
@@ -92,11 +96,11 @@ sudo dnf install ./ClipBox-1.1.0-linux-x86_64.rpm
 <details>
 <summary>설치 패키지 대신 압축 파일로 실행하기</summary>
 
-[Linux TAR.GZ 받기](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-linux-x64.tar.gz) 후 파일이 있는 폴더에서 실행합니다.
+[Linux TAR.GZ 받기](https://github.com/treeview-official/ClipBox/releases/download/v1.2.0/ClipBox-1.2.0-linux-x64.tar.gz) 후 파일이 있는 폴더에서 실행합니다.
 
 ```sh
-tar -xzf ClipBox-1.1.0-linux-x64.tar.gz
-cd ClipBox-1.1.0-linux-x64
+tar -xzf ClipBox-1.2.0-linux-x64.tar.gz
+cd ClipBox-1.2.0-linux-x64
 ./app.clipbox.desktop
 ```
 
@@ -117,7 +121,7 @@ cd ClipBox-1.1.0-linux-x64
 
 | 상황 | 다음 단계 |
 |---|---|
-| 다운로드 링크가 열리지 않음 | [릴리스 페이지](https://github.com/treeview-official/ClipBox/releases/tag/v1.1.0)의 Assets에서 같은 이름의 파일을 확인합니다. |
+| 다운로드 링크가 열리지 않음 | [릴리스 페이지](https://github.com/treeview-official/ClipBox/releases/tag/v1.2.0)의 Assets에서 같은 이름의 파일을 확인합니다. |
 | 설치했는데 실행 아이콘을 못 찾음 | Windows 시작 메뉴, Mac 응용 프로그램, Linux 앱 목록에서 ClipBox를 검색합니다. |
 | 새 기록이 없음 | 수집 동의·활성화·일시정지를 확인한 뒤 새 내용을 복사합니다. |
 | 창을 닫아도 실행 중 | 기본 백그라운드 동작입니다. 메뉴의 완전 종료를 사용합니다. Linux에서 트레이가 없으면 백그라운드 유지 설정을 끄고 창을 닫습니다. |

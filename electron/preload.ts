@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron';
-import type { ClipBoxAPI, ManagerPage } from '../shared/contracts';
+import type { ClipBoxAPI, ManagerPage, UpdateState } from '../shared/contracts';
 
 type Reply<T> = { ok: true; value: T } | { ok: false; message: string };
 
@@ -26,6 +26,14 @@ const api: ClipBoxAPI = {
   updateSettings: partial => invoke('clipbox:update-settings', partial),
   windowAction: action => invoke('clipbox:window-action', action),
   openManager: page => invoke('clipbox:open-manager', page),
+  readUpdate: () => invoke('clipbox:read-update'),
+  checkUpdate: () => invoke('clipbox:check-update'),
+  downloadUpdate: () => invoke('clipbox:download-update'),
+  cancelUpdate: () => invoke('clipbox:cancel-update'),
+  installUpdate: () => invoke('clipbox:install-update'),
+  showUpdateFile: () => invoke('clipbox:show-update-file'),
+  openSupport: () => invoke('clipbox:open-support'),
+  onUpdate: callback => listen('clipbox:update', (state: UpdateState) => callback(state)),
   onChanged: callback => listen('clipbox:changed', callback),
   onNavigate: callback => listen('clipbox:navigate', (page: ManagerPage) => callback(page)),
   onShown: callback => listen('clipbox:shown', callback),

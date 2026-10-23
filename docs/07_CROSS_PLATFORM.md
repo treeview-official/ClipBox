@@ -1,5 +1,7 @@
 # ClipBox 1.1 — 플랫폼 지원과 검증 범위
 
+> 이 문서는 1.1의 플랫폼 구현과 검증 기록입니다. 현재 버전의 업데이트·패치노트 기능은 [1.2 안내](08_UPDATES.md)를 참고하세요.
+
 작성일: 2026-10-22 (Asia/Seoul). Windows x64, macOS Apple Silicon·Intel, Linux x64를 지원합니다. 일반 사용자는 Node.js 없이 [설치 안내](INSTALL.md)에 따라 해당 OS의 패키지를 설치할 수 있습니다. [1.0 검증 기록](06_VERIFICATION.md)은 당시 결과로 보존합니다.
 
 ## 확인한 결과

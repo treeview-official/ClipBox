@@ -1,6 +1,7 @@
-import { app, BrowserWindow, ClipboardItem, clipboard, dialog, globalShortcut, ipcMain, Menu, nativeImage, nativeTheme, powerMonitor, screen, session, Tray } from 'electron';
+import { app, BrowserWindow, ClipboardItem, clipboard, dialog, globalShortcut, ipcMain, Menu, nativeImage, nativeTheme, powerMonitor, screen, session, shell, Tray } from 'electron';
 import type { IpcMainInvokeEvent } from 'electron';
 import { mkdirSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { ClipRepository } from './database';
@@ -10,6 +11,8 @@ import { MAX_IMAGE_BYTES } from './content';
 import { LinuxAutostartFile } from './autostart';
 import { autoStartAvailable, DESKTOP_FILE_NAME, isWayland, linuxAutostartPath, linuxStartupExecutable, platformNotice } from './platform';
 import type { AppStatus, ListQuery, ManagerPage, Settings } from '../shared/contracts';
+import { UpdateService } from './updater';
+import { SUPPORT_EMAIL } from '../shared/releases';
 
 app.setName('ClipBox');
 if (process.platform === 'win32') app.setAppUserModelId('app.clipbox.desktop');
@@ -33,6 +36,8 @@ let tray: Tray | null = null;
 let repository: ClipRepository;
 let settingsStore: SettingsStore;
 let monitor: ClipboardMonitor;
+let updater: UpdateService;
+let installPromptOpen = false;
 let cleanupTimer: ReturnType<typeof setInterval> | null = null;
 let activeShortcut: string | null = null;
 let shortcutError: string | null = null;
@@ -194,6 +199,7 @@ function configureTray(): void {
     { label: settings.paused ? '수집 재개' : '수집 일시정지', enabled: settings.onboarded && settings.collectionEnabled,
       click: () => { void applySettings({ paused: !settingsStore.get().paused }).catch(() => reportError('설정을 저장하지 못했습니다.')); } },
     { label: '환경설정', click: () => showManager('settings') },
+    { label: '업데이트 확인·패치노트', click: () => showManager('release-notes') },
     { type: 'separator' },
     { label: '완전 종료', click: () => app.quit() },
     ]));
@@ -211,6 +217,7 @@ function configureApplicationMenu(): void {
     { label: 'ClipBox', submenu: [
       { role: 'about' }, { type: 'separator' },
       { label: '환경설정…', accelerator: 'Command+,', click: () => showManager('settings') },
+      { label: '업데이트 확인·패치노트…', click: () => showManager('release-notes') },
       { type: 'separator' }, { role: 'services' }, { type: 'separator' },
       { role: 'hide' }, { role: 'hideOthers' }, { role: 'unhide' }, { type: 'separator' }, { role: 'quit' },
     ] },
@@ -360,8 +367,33 @@ function registerIpc(): void {
   });
   handle('read-status', () => status());
   handle('update-settings', (_event, patch) => applySettings(patch));
+  handle('read-update', () => updater.read());
+  handle('check-update', () => updater.check());
+  handle('download-update', () => updater.download());
+  handle('cancel-update', () => updater.cancel());
+  handle('show-update-file', () => updater.reveal());
+  handle('install-update', async event => {
+    if (!app.isPackaged) throw new UserError('업데이트 설치는 설치된 ClipBox에서 사용할 수 있습니다.');
+    if (installPromptOpen || updater.read().phase !== 'ready') return updater.read();
+    const win = BrowserWindow.fromWebContents(event.sender);
+    if (!win) throw new UserError('설치 안내를 표시할 창이 없습니다.');
+    installPromptOpen = true;
+    try {
+      const format = updater.read().release?.format;
+      const instruction = platform === 'darwin' ? 'DMG가 열리면 ClipBox를 응용 프로그램 폴더로 옮겨 기존 앱을 교체하세요.' : platform === 'win32' ? '열리는 설치 프로그램의 안내에 따라 업데이트를 완료하세요.' : format === 'tar.gz' ? '압축 파일을 새 폴더에 풀고 새 ClipBox를 실행하세요.' : '열리는 소프트웨어 설치 앱에서 설치를 완료하세요. 필요하면 관리자 인증을 진행합니다.';
+      const result = await dialog.showMessageBox(win, { type: 'question', title: 'ClipBox 업데이트', message: 'ClipBox를 종료하고 업데이트를 설치할까요?', detail: `${instruction}\n기존 기록과 환경설정은 유지됩니다. 저장하지 않은 설정이 있다면 먼저 저장하세요.`, buttons: ['취소', '업데이트 설치'], defaultId: 0, cancelId: 0, noLink: true });
+      if (result.response !== 1) return updater.read();
+      const state = await updater.install();
+      if (state.phase === 'opened') setTimeout(() => app.quit(), 300);
+      return state;
+    } finally { installPromptOpen = false; }
+  });
+  handle('open-support', async () => {
+    try { await shell.openExternal(`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent('ClipBox 요청사항 / 오류 문의')}`); }
+    catch { throw new UserError(`메일 앱을 열지 못했습니다. ${SUPPORT_EMAIL}으로 직접 보내 주세요.`); }
+  });
   handle('open-manager', (_event, page) => {
-    if (page !== undefined && page !== 'history' && page !== 'settings') throw new UserError('화면 요청이 올바르지 않습니다.');
+    if (page !== undefined && page !== 'history' && page !== 'settings' && page !== 'release-notes') throw new UserError('화면 요청이 올바르지 않습니다.');
     showManager(page as ManagerPage | undefined);
   });
   handle('window-action', (event, action) => {
@@ -382,7 +414,7 @@ function registerIpc(): void {
 function configureSession(): void {
   session.defaultSession.setPermissionRequestHandler((_contents, _permission, callback) => callback(false));
   session.defaultSession.setPermissionCheckHandler(() => false);
-  // The app is offline. The development server is the only development exception.
+  // Renderer networking stays blocked. Explicit update requests use main's fixed GitHub endpoints.
   const allowedOrigin = devServer ? new URL(devServer).origin : null;
   session.defaultSession.webRequest.onBeforeRequest({ urls: ['http://*/*', 'https://*/*', 'ws://*/*', 'wss://*/*'] }, (details, callback) => {
     const url = new URL(details.url);
@@ -395,6 +427,7 @@ function configureSession(): void {
 function cleanup(): void {
   quitting = true;
   monitor?.stop();
+  updater?.dispose();
   if (cleanupTimer) clearInterval(cleanupTimer);
   cleanupTimer = null;
   globalShortcut.unregisterAll();
@@ -412,6 +445,13 @@ else {
   void app.whenReady().then(async () => {
     configureApplicationMenu();
     configureSession();
+    updater = new UpdateService({
+      version: app.getVersion(), platform, arch: process.arch, tempDirectory: app.getPath('temp'),
+      linuxRelease: platform === 'linux' ? await readFile('/etc/os-release', 'utf8').catch(() => '') : '',
+      changed: state => broadcast('clipbox:update', state),
+      openInstaller: async filename => { if (await shell.openPath(filename)) throw new Error('Installer could not be opened'); },
+      revealInstaller: filename => shell.showItemInFolder(filename),
+    });
     settingsStore = new SettingsStore(app.getPath('userData'));
     repository = new ClipRepository(app.getPath('userData'));
     nativeTheme.themeSource = settingsStore.get().theme;

@@ -12,6 +12,7 @@ Windows·macOS·Linux용 로컬 클립보드 히스토리 매니저를 구현하
 6. `design/mockups/*.png` (시각적 참고)
 7. `docs/07_CROSS_PLATFORM.md` (1.1 플랫폼 변경과 검증 범위)
 8. `docs/INSTALL.md` (일반 사용자용 OS별 설치와 최초 실행)
+9. `docs/08_UPDATES.md` (1.2 업데이트·패치노트·문의)
 
 `docs/01`~`05`는 최초 Windows 중심 명세다. 이후 사용자의 macOS/Linux 추가 요청과 `docs/07_CROSS_PLATFORM.md`를 함께 적용한다. `docs/06_VERIFICATION.md`는 1.0의 역사적 검증 기록이므로 새 결과로 덮어쓰지 않는다.
 
@@ -26,7 +27,7 @@ Windows·macOS·Linux용 로컬 클립보드 히스토리 매니저를 구현하
 - 앱 기능과 동작의 기준은 `docs/` 명세이고, 이미지 내 숫자/데이터는 샘플이다.
 - Main/Preload/Renderer 경계를 분리하고 `contextIsolation: true`, `nodeIntegration: false`, sandbox 등 보안 기본값을 유지한다.
 - `ipcRenderer` 전체를 렌더러에 노출하지 말고 채널별 화이트리스트 기반의 제한된 API를 제공한다. 입력 검증을 반드시 한다.
-- clipboard 원문, 비밀번호, 토큰을 로그·원격 서버·분석 플랫폼으로 보내지 않는다. 기본적으로 외부 네트워크 요청을 만들지 않는다.
+- clipboard 원문, 비밀번호, 토큰을 로그·원격 서버·분석 플랫폼으로 보내지 않는다. 사용자가 누른 업데이트 확인·다운로드에 한해 main의 고정 GitHub API/CDN 요청을 허용한다. 시작 시 자동 네트워크 요청과 렌더러 외부 요청은 만들지 않는다.
 - 클립보드 기록 사용은 최초 실행 시 사용자에게 명확하게 알리고 켜기/끄기를 제공한다. 비밀번호 자동 제외가 완벽하다고 주장하지 않는다.
 - 전역 단축키 기본값은 Windows/Linux `Ctrl+Shift+V`, macOS `Command+Shift+V`다. 등록 실패가 앱 시작을 막지 않아야 하며 대체 버튼·사용자 지정 키를 제공한다. Wayland 포털 등록 성공을 실제 키 연결 검증으로 간주하지 않는다.
 - UI는 main의 `AppStatus.platform`을 사용한다. macOS의 Command와 물리 Control을 구분하고 복사·검색·붙여넣기 힌트에도 적용한다.
@@ -55,3 +56,5 @@ Windows·macOS·Linux용 로컬 클립보드 히스토리 매니저를 구현하
 산출물은 버전별 `release/<version>/`에 생성해 기존 검증 배포물을 보존한다. macOS DMG는 macOS에서, Linux DEB/RPM은 Linux에서 빌드한다. Windows/macOS에서 Linux 실행 아카이브만 만들 때는 `npm run dist:linux:archive`를 사용한다.
 
 수동 워크플로 `.github/workflows/build-desktop.yml`은 Windows x64, macOS arm64·x64, Ubuntu x64에서 실행한다. Windows는 NSIS 무인 설치 후 EXE, macOS는 DMG 마운트·복사 후 앱, Ubuntu는 DEB 설치 후 Xvfb/X11에서 시작을 확인한다. RPM 메타데이터 조회를 Fedora 설치·실행 검사로 표현하지 않는다. 실행 결과를 확인하기 전까지 성공했다고 기록하지 않으며, 서명·공증 자격 증명이 없으면 적용된 것으로 표현하지 않는다.
+
+1.2부터 업데이트 설치 파일을 열기 전 공식 저장소·OS/CPU·버전·크기·SHA-256을 검사한다. 구버전으로 자동 낮추지 않는다. macOS 서명 없는 자동 앱 교체를 주장하지 않으며 OS 설치 화면으로 연결하는 방식을 문서화한다. 업데이트 테스트는 임시 프로필·합성 응답과 실행기 대역을 사용하며 실제 사용자 앱이나 기록을 바꾸지 않는다.

@@ -14,6 +14,7 @@ const checks = [
   'Visible first-run consent with collection disabled and empty history',
   'Renderer sandbox, isolation, web security and no Node globals',
   'First-run UI rendered without observed renderer exceptions',
+  'Offline update controls, release notes, support email and titlebar alignment',
 ];
 const nativeTargets = ['win32-x64', 'darwin-arm64', 'darwin-x64', 'linux-x64'];
 const artifactTargets = ['win-x64', 'mac-arm64', 'mac-x64', 'linux-x64'];
@@ -126,6 +127,7 @@ export function validateEvidence(evidence, target, releaseVersion) {
   assert.equal(evidence.runtime?.platform, platform, `${target}: runtime platform differs.`);
   assert.equal(evidence.runtime?.arch, arch, `${target}: runtime is not native.`);
   assert.equal(evidence.runtime?.sandboxDisabled, false, `${target}: sandbox was disabled.`);
+  assert.equal(evidence.updateUi, 'passed', `${target}: update and patch notes UI did not pass.`);
   assert.equal(evidence.bundledKoreanFont, 'loaded', `${target}: bundled Korean font was not verified as loaded.`);
   assert.equal(evidence.rendererErrorCount, 0, `${target}: renderer errors were observed.`);
   assert.equal(evidence.executableSource, 'explicit', `${target}: expected the installed/copied executable.`);
@@ -137,7 +139,7 @@ export function validateEvidence(evidence, target, releaseVersion) {
   return {
     target, result: 'passed', version: releaseVersion, hostPlatform: platform, hostArch: arch,
     runtime: { packaged: true, name: 'ClipBox', version: releaseVersion, platform, arch, sandboxDisabled: false },
-    bundledKoreanFont: 'loaded', rendererErrorCount: 0, checks: [...evidence.checks],
+    bundledKoreanFont: 'loaded', updateUi: 'passed', rendererErrorCount: 0, checks: [...evidence.checks],
     ...(platform === 'linux' ? { displayBackend: 'x11' } : {}),
   };
 }
@@ -170,13 +172,21 @@ function releaseNotes(v, repo, runUrl, sha) {
 
 추가 압축 배포물: [Mac Apple Silicon ZIP](${download(`ClipBox-${v}-mac-arm64.zip`)}), [Mac Intel ZIP](${download(`ClipBox-${v}-mac-x64.zip`)}), [Linux TAR.GZ](${download(`ClipBox-${v}-linux-x64.tar.gz`)}).
 
+## 이번 업데이트
+
+- 상단 기록 상태와 창 제어 버튼 정렬 수정
+- 환경설정의 업데이트 확인·진행률·취소·무결성 확인 및 OS별 설치 파일 열기
+- 환경설정 아래 패치노트 메뉴, 문의 이메일 tree_view@naver.com
+
+1.0.0·1.1.0에는 업데이트 버튼이 없으므로 이번 버전은 위 설치 파일로 한 번 설치하세요. 이후에는 앱의 **환경설정 → 업데이트 확인**에서 새 버전을 확인할 수 있습니다. 설치 화면을 열면 앱이 종료되며 Windows는 설치 마법사, Mac은 DMG 앱 교체, Linux는 설치 관리자에서 마칩니다. 자동 무인 교체 기능은 아닙니다. [자세한 업데이트 안내](${base}/blob/main/docs/08_UPDATES.md).
+
 ## 설치 후 처음 사용하기
 
 최초 안내에서 기록 수집에 동의하면 새로 복사한 내용을 저장합니다. Windows/Linux는 Ctrl+Shift+V, Mac은 ⌘+Shift+V로 기록을 열고 Enter로 다시 복사한 다음 대상 앱에서 Ctrl+V / ⌘+V로 붙여넣습니다. 자세한 순서는 [설치·사용 안내](${base}/blob/main/docs/INSTALL.md)에 있습니다.
 
 ## 이번 배포물의 검증 범위
 
-[네이티브 빌드 실행 기록](${runUrl})의 네 작업이 성공했습니다. Windows x64는 NSIS 설치 후, macOS arm64·x64는 DMG를 마운트하고 앱을 복사한 후, Ubuntu x64는 DEB 설치 후 X11/Xvfb에서 실행했습니다. 네 환경 모두 패키지 버전·네이티브 아키텍처, 관리 화면·제한된 preload API, 기록 수집이 꺼진 최초 동의 화면과 빈 기록, 렌더러 sandbox·격리·웹 보안·Node 접근 차단, 시작 시 관찰된 렌더러 예외 0건을 확인했습니다. 테스트 중 sandbox를 끄지 않았으며 클립보드 읽기·쓰기나 기록 수집 동의를 수행하지 않았습니다.
+[네이티브 빌드 실행 기록](${runUrl})의 네 작업이 성공했습니다. Windows x64는 NSIS 설치 후, macOS arm64·x64는 DMG를 마운트하고 앱을 복사한 후, Ubuntu x64는 DEB 설치 후 X11/Xvfb에서 실행했습니다. 네 환경 모두 패키지 버전·네이티브 아키텍처, 관리 화면·제한된 preload API, 기록 수집이 꺼진 최초 동의 화면과 빈 기록, 렌더러 sandbox·격리·웹 보안·Node 접근 차단, 시작 시 관찰된 렌더러 예외 0건을 확인했습니다. 기록 수집을 끈 상태로 패치노트·업데이트 버튼·문의 주소·상단 정렬도 확인했습니다. 테스트 중 sandbox를 끄지 않았으며 클립보드 읽기·쓰기나 기록 수집 동의를 수행하지 않았습니다.
 
 이 검사는 시작 화면 확인이며 설치 마법사 전체, 재부팅·로그인 자동 시작, 앱 사이 클립보드·전역 단축키 사용을 모두 검증한 것은 아닙니다. RPM은 패키지 메타데이터 조회만 확인했으며 Fedora/RHEL 설치·실행은 미검증입니다. ZIP/TAR 파일은 별도 설치·실행 검사를 하지 않았습니다. Wayland는 미검증이며 클립보드 수집·단축키·창 포커스에 제한이 있을 수 있습니다.
 
@@ -216,7 +226,7 @@ export async function stageRelease(root = process.cwd()) {
   const verification = {
     schemaVersion: 1, version: v, generatedAt: new Date().toISOString(),
     source: { repository: repo, commit: sha, runId: id, runUrl },
-    scope: 'Packaged native startup and first-run consent only; no clipboard access or collection opt-in.',
+    scope: 'Packaged native startup, first-run consent and offline update/release UI; no clipboard access, network download or installer execution by the updater.',
     limitations: ['No complete interactive installer or cross-application clipboard test.', 'No Apple Developer ID signing/notarization or Windows developer-certificate signing.', 'RPM metadata only; Fedora/RHEL installation and startup not tested.', 'ZIP/TAR startup, login auto-start and Wayland not tested.'],
     nativeStartup, artifacts,
   };

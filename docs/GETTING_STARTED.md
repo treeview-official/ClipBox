@@ -8,11 +8,11 @@
 
 | 내 컴퓨터 | 다운로드 |
 |---|---|
-| Windows x64 | [Windows 설치 파일](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-Setup-1.1.0.exe) |
-| Mac Apple Silicon | [Apple Silicon용 DMG](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-mac-arm64.dmg) |
-| Mac Intel | [Intel용 DMG](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-mac-x64.dmg) |
-| Ubuntu/Debian 계열 x64 | [Linux DEB 설치 파일](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-linux-amd64.deb) |
-| Fedora/RHEL 계열 x64 | [Linux RPM 설치 파일](https://github.com/treeview-official/ClipBox/releases/download/v1.1.0/ClipBox-1.1.0-linux-x86_64.rpm) |
+| Windows x64 | [Windows 설치 파일](https://github.com/treeview-official/ClipBox/releases/download/v1.2.0/ClipBox-Setup-1.2.0.exe) |
+| Mac Apple Silicon | [Apple Silicon용 DMG](https://github.com/treeview-official/ClipBox/releases/download/v1.2.0/ClipBox-1.2.0-mac-arm64.dmg) |
+| Mac Intel | [Intel용 DMG](https://github.com/treeview-official/ClipBox/releases/download/v1.2.0/ClipBox-1.2.0-mac-x64.dmg) |
+| Ubuntu/Debian 계열 x64 | [Linux DEB 설치 파일](https://github.com/treeview-official/ClipBox/releases/download/v1.2.0/ClipBox-1.2.0-linux-amd64.deb) |
+| Fedora/RHEL 계열 x64 | [Linux RPM 설치 파일](https://github.com/treeview-official/ClipBox/releases/download/v1.2.0/ClipBox-1.2.0-linux-x86_64.rpm) |
 
 Windows는 설치 파일을 실행하고, Mac은 DMG에서 ClipBox를 Applications로 옮깁니다. Linux는 파일을 소프트웨어 설치 앱으로 엽니다. CPU 종류 확인과 처음 실행할 때의 보안 안내는 [단계별 설치 가이드](INSTALL.md)를 따라 주세요. 서명·공증 상태와 배포판별 실제 검증 범위는 [플랫폼 안내](07_CROSS_PLATFORM.md)에 있습니다.
 
@@ -94,7 +94,7 @@ npm run dev
 | `npm run dist` / `npm run make` | 현재 OS 패키지 |
 | `npm run pack` | 현재 OS 실행 폴더 |
 
-결과는 `release/1.1.0/`에 생성되며 Git 소스에는 포함하지 않습니다. [패키지 워크플로](../.github/workflows/build-desktop.yml)와 [플랫폼별 검증 결과](07_CROSS_PLATFORM.md)에서 빌드 환경과 확인 범위를 볼 수 있습니다.
+결과는 `release/1.2.0/`에 생성되며 Git 소스에는 포함하지 않습니다. [패키지 워크플로](../.github/workflows/build-desktop.yml)와 [플랫폼별 검증 결과](07_CROSS_PLATFORM.md)에서 빌드 환경과 확인 범위를 볼 수 있습니다.
 
 ## 검증 실행
 
@@ -120,3 +120,7 @@ Windows에서는 빌드 후 `npm run test:e2e`로 실제 UI·클립보드 검사
 | 개발 서버가 시작되지 않음 | Node 버전·의존성 설치·5173 포트 충돌을 확인합니다. |
 
 [문서 모음으로 돌아가기](README.md)
+
+## 업데이트·패치노트·문의
+
+환경설정에서 업데이트를 확인하고, 바로 아래 패치노트 메뉴에서 변경 내역을 보세요. 요청사항·오류 문의는 **tree_view@naver.com**입니다. [OS별 업데이트 안내](08_UPDATES.md)를 참고하세요.
