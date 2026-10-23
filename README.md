@@ -46,15 +46,15 @@ Mac 종류를 모르겠다면 **Apple 메뉴 → 이 Mac에 관하여**에서 �
 
 ## 플랫폼 지원 상태
 
-현재 소스 버전은 **1.2.0**입니다. 아래 표는 1.1부터 지원하는 플랫폼과 기존 검증 범위이며, 이번 변경과 검증은 [1.2 업데이트 안내](docs/08_UPDATES.md)를 참고하세요.
+현재 소스 버전은 **1.2.0**입니다. Windows·Mac 두 CPU·Ubuntu의 설치된 1.2 앱에서 시작과 새 업데이트·패치노트 화면 검사를 통과했습니다. [1.2 업데이트 안내](docs/08_UPDATES.md)
 
 | 플랫폼 | 패키지 | 확인된 범위 |
 |---|---|---|
-| Windows x64 | NSIS `.exe` | 무인 설치 후 EXE 시작·최초 동의·IPC 검사 통과. 실제 클립보드 소스 E2E 15개 통과 |
+| Windows x64 | NSIS `.exe` | 무인 설치 후 EXE 시작·최초 동의·업데이트·패치노트 UI 검사 통과 |
 | macOS Apple Silicon / Intel | `.dmg` / `.zip` | macOS 15의 각 CPU에서 DMG 마운트·앱 복사 후 네이티브 시작 검사 통과 |
 | Linux x64 | `.deb` / `.rpm` / `.tar.gz` | Ubuntu 24.04에서 DEB 설치 후 Xvfb/X11 시작 검사 통과. RPM은 생성·메타데이터 확인 |
 
-1.1의 한국어 글꼴을 포함한 [패키지 CI](https://github.com/treeview-official/ClipBox/actions/runs/39761371062)의 네 작업이 모두 통과했습니다. 설치된 앱의 시작·보안 설정·로컬 한국어 글꼴 로드를 각 환경에서 확인했습니다.
+1.2의 [패키지 CI](https://github.com/treeview-official/ClipBox/actions/runs/39910839386)의 네 작업이 모두 통과했습니다. 설치된 앱의 시작·보안 설정·한국어 글꼴·업데이트 버튼·패치노트·문의 주소·상단 정렬을 각 환경에서 확인했습니다.
 
 Linux는 **X11 우선**입니다. Wayland의 백그라운드 클립보드 수집·전역 단축키·팝업 포커스는 데스크톱과 포털에 따라 제한됩니다. macOS·Linux의 실제 앱 간 클립보드·전역 단축키·로그인 자동 실행, Fedora/RHEL의 RPM 설치·실행, 대화형 설치·제거 흐름은 추가 검수 대상입니다. [상세 상태와 검수 항목](docs/07_CROSS_PLATFORM.md)을 확인하세요.
 
@@ -97,7 +97,7 @@ npm run build
 
 산출물은 `release/1.2.0/`에 생성되며 Git 소스에는 포함하지 않습니다. `npm run dist`는 현재 OS를 선택하고, `npm run dist:linux:archive`는 TAR.GZ만 생성합니다. [CI](.github/workflows/ci.yml)는 main 푸시·PR에서 세 운영체제의 타입 검사·단위 검사·빌드를 실행합니다. [패키지 빌드 워크플로](.github/workflows/build-desktop.yml)는 설치 파일과 패키지 검증을 담당합니다. 최신 실행 결과는 [플랫폼 안내](docs/07_CROSS_PLATFORM.md)를 확인하세요.
 
-**기존 1.1 소스 검증:** GitHub의 Windows·macOS·Ubuntu에서 타입 검사와 프로덕션 소스 빌드가 통과했습니다. 단위 검사는 Windows **37개 통과·2개 건너뜀**, macOS·Ubuntu **각 39개 통과**입니다. 로컬 Windows 소스 E2E **15개도 통과**했습니다. [최종 소스 CI 실행 결과](https://github.com/treeview-official/ClipBox/actions/runs/39761357290)를 확인하세요. `npm run test:e2e`는 Windows 기준이며 시스템 클립보드를 사용하는 검사입니다.
+**1.2 소스 검증:** [소스 CI](https://github.com/treeview-official/ClipBox/actions/runs/39910839190)에서 타입·빌드, Windows 단위 **48개 통과·POSIX 전용 2개 건너뜀**, macOS·Ubuntu **각 50개 통과**입니다. 로컬 실제 Electron 업데이트 UI **6개 시나리오**도 통과했습니다. 새 버전 다운로드와 설치 연결은 합성 데이터·대역 실행기로 검사했으며 실제 사용자 앱은 교체하지 않았습니다. [검증 범위](docs/08_UPDATES.md#검증)
 
 **패키지 검증 방식:** 설치된 앱의 시작 검사는 네이티브 버전·아키텍처, 관리 창·제한된 IPC, 수집 OFF 상태의 최초 동의·빈 기록, sandbox와 번들 한국어 글꼴 로드를 확인합니다. 클립보드 수집이나 자동 시작을 켜지 않으며, 실제 앱 간 복사·붙여넣기 검수와 구분합니다. [플랫폼별 검증 범위](docs/07_CROSS_PLATFORM.md)에 자세히 기록했습니다.
 

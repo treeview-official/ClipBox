@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "version": "1.2.0",
+  "generatedAt": "2026-10-23T06:25:04.019Z",
+  "source": {
+    "repository": "treeview-official/ClipBox",
+    "commit": "2b8de212c331549399829cac682ea66a5fc5ed99",
+    "runId": "39910839386",
+    "runUrl": "https://github.com/treeview-official/ClipBox/actions/runs/39910839386"
+  },
+  "scope": "Packaged native startup, first-run consent and offline update/release UI; no clipboard access, network download or installer execution by the updater.",
+  "limitations": [
+    "No complete interactive installer or cross-application clipboard test.",
+    "No Apple Developer ID signing/notarization or Windows developer-certificate signing.",
+    "RPM metadata only; Fedora/RHEL installation and startup not tested.",
+    "ZIP/TAR startup, login auto-start and Wayland not tested."
+  ],
+  "nativeStartup": [
+    {
+      "target": "win32-x64",
+      "result": "passed",
+      "version": "1.2.0",
+      "hostPlatform": "win32",
+      "hostArch": "x64",
+      "runtime": {
+        "packaged": true,
+        "name": "ClipBox",
+        "version": "1.2.0",
+        "platform": "win32",
+        "arch": "x64",
+        "sandboxDisabled": false
+      },
+      "bundledKoreanFont": "loaded",
+      "updateUi": "passed",
+      "rendererErrorCount": 0,
+      "checks": [
+        "Packaged app identity, version and native architecture",
+        "Manager renderer and restricted preload IPC are available",
+        "Visible first-run consent with collection disabled and empty history",
+        "Renderer sandbox, isolation, web security and no Node globals",
+        "Bundled Korean font loads for offline UI rendering",
+        "First-run UI rendered without observed renderer exceptions",
+        "Offline update controls, release notes, support email and titlebar alignment"
+      ]
+    },
+    {
+      "target": "darwin-arm64",
+      "result": "passed",
+      "version": "1.2.0",
+      "hostPlatform": "darwin",
+      "hostArch": "arm64",
+      "runtime": {
+        "packaged": true,
+        "name": "ClipBox",
+        "version": "1.2.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "sandboxDisabled": false
+      },
+      "bundledKoreanFont": "loaded",
+      "updateUi": "passed",
+      "rendererErrorCount": 0,
+      "checks": [
+        "Packaged app identity, version and native architecture",
+        "Manager renderer and restricted preload IPC are available",
+        "Visible first-run consent with collection disabled and empty history",
+        "Renderer sandbox, isolation, web security and no Node globals",
+        "Bundled Korean font loads for offline UI rendering",
+        "First-run UI rendered without observed renderer exceptions",
+        "Offline update controls, release notes, support email and titlebar alignment"
+      ]
+    },
+    {
+      "target": "darwin-x64",
+      "result": "passed",
+      "version": "1.2.0",
+      "hostPlatform": "darwin",
+      "hostArch": "x64",
+      "runtime": {
+        "packaged": true,
+        "name": "ClipBox",
+        "version": "1.2.0",
+        "platform": "darwin",
+        "arch": "x64",
+        "sandboxDisabled": false
+      },
+      "bundledKoreanFont": "loaded",
+      "updateUi": "passed",
+      "rendererErrorCount": 0,
+      "checks": [
+        "Packaged app identity, version and native architecture",
+        "Manager renderer and restricted preload IPC are available",
+        "Visible first-run consent with collection disabled and empty history",
+        "Renderer sandbox, isolation, web security and no Node globals",
+        "Bundled Korean font loads for offline UI rendering",
+        "First-run UI rendered without observed renderer exceptions",
+        "Offline update controls, release notes, support email and titlebar alignment"
+      ]
+    },
+    {
+      "target": "linux-x64",
+      "result": "passed",
+      "version": "1.2.0",
+      "hostPlatform": "linux",
+      "hostArch": "x64",
+      "runtime": {
+        "packaged": true,
+        "name": "ClipBox",
+        "version": "1.2.0",
+        "platform": "linux",
+        "arch": "x64",
+        "sandboxDisabled": false
+      },
+      "bundledKoreanFont": "loaded",
+      "updateUi": "passed",
+      "rendererErrorCount": 0,
+      "checks": [
+        "Packaged app identity, version and native architecture",
+        "Manager renderer and restricted preload IPC are available",
+        "Visible first-run consent with collection disabled and empty history",
+        "Renderer sandbox, isolation, web security and no Node globals",
+        "Bundled Korean font loads for offline UI rendering",
+        "First-run UI rendered without observed renderer exceptions",
+        "Offline update controls, release notes, support email and titlebar alignment"
+      ],
+      "displayBackend": "x11"
+    }
+  ],
+  "artifacts": [
+    {
+      "filename": "ClipBox-1.2.0-linux-amd64.deb",
+      "bytes": 107208784,
+      "sha256": "0afe65347bff988117b4f944ea763aada71c1f1c61daf38911483c12a87f0015"
+    },
+    {
+      "filename": "ClipBox-1.2.0-linux-x64.tar.gz",
+      "bytes": 133553882,
+      "sha256": "5f02e9c443d675dfe970a974eb70a6db15b44acd771301bcb632895f56c365ea"
+    },
+    {
+      "filename": "ClipBox-1.2.0-linux-x86_64.rpm",
+      "bytes": 95416481,
+      "sha256": "bd2d15835d3a9064f523bc78e11a3d300717de5d23ad76cce17c85fc26e5c635"
+    },
+    {
+      "filename": "ClipBox-1.2.0-mac-arm64.dmg",
+      "bytes": 127583595,
+      "sha256": "a7214893a48bbc24cd56de359cda6fb109170b7bbeef774c163d9ae355fb8eb2"
+    },
+    {
+      "filename": "ClipBox-1.2.0-mac-arm64.zip",
+      "bytes": 127601057,
+      "sha256": "64a280c1f352aabb1d5b1d2b7e3163d69427f38e5c2b44403bb555ecf81bc4b8"
+    },
+    {
+      "filename": "ClipBox-1.2.0-mac-x64.dmg",
+      "bytes": 131852112,
+      "sha256": "da73d35441e5a5fb06287a285a8d331407e5510bb71eafaf500fd6324725b9fa"
+    },
+    {
+      "filename": "ClipBox-1.2.0-mac-x64.zip",
+      "bytes": 131886567,
+      "sha256": "2acdcf38d6a3e2bf2f86f722b2c84e11cc82f3e65d4a1e16a8839509d08c1efc"
+    },
+    {
+      "filename": "ClipBox-Setup-1.2.0.exe",
+      "bytes": 118621731,
+      "sha256": "a410835c7ae0b82417d94250285a245cbcc90df3756190f86bb0a38f39c067ef"
+    }
+  ]
+}

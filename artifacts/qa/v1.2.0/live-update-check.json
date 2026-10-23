@@ -1,0 +1,11 @@
+{
+  "version": "1.2.0",
+  "result": "passed",
+  "platform": "win32-x64",
+  "scope": "Live public GitHub latest release checked by actual Electron main and restricted preload in isolated profile",
+  "phase": "current",
+  "latestVersion": "1.2.0",
+  "selectedInstaller": "ClipBox-Setup-1.2.0.exe",
+  "downloadPerformed": false,
+  "clipboardCollection": false
+}

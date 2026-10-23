@@ -40,8 +40,23 @@
 
 ## 검증
 
-로컬 Windows 타입 검사·소스 빌드 및 단위 검사 48개 통과, POSIX 전용 2개는 해당 OS에서 검사합니다. 업데이트 검사는 버전 비교, OS/CPU·배포판 선택, 출처와 해시 검증, 손상·변조 차단, 취소와 재시도, 설치 프로그램 연결 실패를 포함합니다. 각 OS 파일 형식의 다운로드·연결은 합성 응답과 대역 설치 실행기를 사용한 검사입니다.
+[소스 CI](https://github.com/treeview-official/ClipBox/actions/runs/39910839190)에서 타입·소스 빌드와 Windows 단위 48개(2개 POSIX 전용 건너뜀), macOS·Ubuntu 각각 50개 검사가 통과했습니다. 업데이트 검사는 버전 비교, OS/CPU·배포판 선택, 출처와 해시 검증, 손상·변조 차단, 취소와 재시도, 설치 프로그램 연결 실패를 포함합니다. 각 OS 파일 형식의 다운로드·연결은 합성 응답과 대역 설치 실행기를 사용한 검사입니다.
 
 [업데이트 UI 검사](../artifacts/qa/v1.2.0/update-ui-results.json)는 실제 Electron·preload IPC·React 화면을 임시 프로필에서 사용했습니다. 네트워크 응답만 합성하며 설치 파일 실행·메일 전송·클립보드 접근은 수행하지 않았습니다. 정렬, 패치노트, 문의 주소, 업데이트 안내·취소·재시도, 미저장 설정 보호, 동일·이전 버전 차단, 850×560 창을 확인했습니다.
 
 네이티브 패키지 검증과 파일 해시는 [1.2.0 릴리스](https://github.com/treeview-official/ClipBox/releases/tag/v1.2.0)의 기록을 확인하세요. RPM의 Fedora/RHEL 설치·실행, Wayland, 실제 구버전에서 신버전까지의 대화형 설치 완료·자동 재시작, Windows 게시자 인증과 macOS Gatekeeper 전체 흐름은 별도 검수 대상입니다.
+
+### 설치된 1.2 앱 검증
+
+[패키지 CI 실행](https://github.com/treeview-official/ClipBox/actions/runs/39910839386), 소스 `2b8de212c331549399829cac682ea66a5fc5ed99`. Windows NSIS 설치, Mac Apple Silicon·Intel 각각 DMG 마운트·앱 복사, Ubuntu DEB 설치 후 실행했습니다. 각 환경에서 7개 검사를 통과했고 렌더러 예외는 0건입니다. 기록 수집을 켜지 않은 상태로 새 업데이트·패치노트 화면과 상단 정렬을 확인했습니다. 네 환경 모두 한국어 표시도 직접 확인했습니다.
+
+- [Windows 화면](../artifacts/qa/v1.2.0/native-win32-x64.png)
+- [Mac Apple Silicon 화면](../artifacts/qa/v1.2.0/native-darwin-arm64.png)
+- [Mac Intel 화면](../artifacts/qa/v1.2.0/native-darwin-x64.png)
+- [Linux X11 화면](../artifacts/qa/v1.2.0/native-linux-x64.png)
+
+별도로 로컬 Electron의 실제 main/preload 경로에서 공개 GitHub 최신 버전을 읽는 통신을 확인했습니다. 미래 버전의 설치 완료나 서명 검증 성공을 의미하지 않습니다. 실행 파일 위치를 옮겨 설치했다면 자동 시작 설정을 껐다 켜 새 위치를 등록하세요.
+
+### 공개 릴리스 확인
+
+[1.2.0 릴리스](https://github.com/treeview-official/ClipBox/releases/tag/v1.2.0)에 설치·압축 파일 8개와 체크섬·검증 JSON을 공개했습니다. GitHub가 계산한 설치 파일 SHA-256을 빌드 결과와 대조했고, 다섯 설치 파일의 공개 다운로드 응답을 확인했습니다. [파일별 해시와 네이티브 검증 JSON](../artifacts/qa/v1.2.0/release-verification.json), [공개 이후 실제 최신 버전 확인 결과](../artifacts/qa/v1.2.0/live-update-check.json).

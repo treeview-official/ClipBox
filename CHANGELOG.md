@@ -11,7 +11,7 @@
 - 환경설정 아래 오프라인 패치노트, 요청사항·오류 문의 tree_view@naver.com
 - 미저장 설정이 있으면 설치 버튼 비활성화; 렌더러 외부 네트워크 차단 유지
 
-검증: 로컬 타입·빌드, 단위 48개 통과·POSIX 2개 보류, 실제 Electron 업데이트 UI 6개 통과. 새 버전 응답·다운로드·설치 실행기는 합성 대역으로 검사하며 사용자 앱을 교체하지 않습니다. 네이티브 패키지 결과는 [1.2 릴리스](https://github.com/treeview-official/ClipBox/releases/tag/v1.2.0)에 기록합니다. [업데이트 상세](docs/08_UPDATES.md)
+검증: 타입·빌드, Windows 단위 48개 통과·POSIX 2개 건너뜀, macOS·Ubuntu 각각 50개 통과. 실제 Electron 업데이트 UI 6개와 네 환경의 설치된 앱 시작·오프라인 업데이트 UI 검사 각각 7개 통과. 새 버전 응답·다운로드·설치 실행기는 합성 대역으로 검사하며 사용자 앱을 교체하지 않습니다. 네이티브 패키지 결과는 [1.2 릴리스](https://github.com/treeview-official/ClipBox/releases/tag/v1.2.0)에 기록합니다. [업데이트 상세](docs/08_UPDATES.md)
 
 ## 1.1.0 — 2026-10-22
 
